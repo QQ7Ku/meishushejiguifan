@@ -10,7 +10,7 @@
 
 与 [Message](/prts-design/components/message) 的分工：Message 是界面 / 系统反馈（横幅、可关闭、与 Toast 同族）；Cbox 是编辑写在正文里的内容。
 
-## 等级 [​](#等级)
+## 等级 
 
 [Storybook ↗](/prts-design/storybook/?path=/story/components-cbox--levels)
 
@@ -38,7 +38,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 窄版 [​](#窄版)
+## 窄版 
 
 `narrow` 最宽 640（= 模板 `narrow=`）。长文字时图标贴顶。
 
@@ -62,11 +62,11 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 框内的段落与列表 [​](#框内的段落与列表)
+## 框内的段落与列表 
 
 框里直接放的 `p` / `ul` / `ol` / `dl` 段距是 8px，不跟正文的 16px——框内字号 14px，现网又常见「`*` 列表 + 一行说明 + `:` 缩进」连着写，照正文段距每块之间都空出一行。最后一块不留下外边距（收尾的是列表或 `:` 缩进行时，最后一个 `li` / `dd` 的也归零，框底与框顶留白一致）；嵌套的列表照正文规则。
 
-## 与现网模板的对应 [​](#与现网模板的对应)
+## 与现网模板的对应 
 
 | `Template:Cbox2` | `AkCbox` | CSS |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ html
 <div class="ak-cbox ak-cbox--tip"><span class="ak-cbox__icon"><svg class="ak-icon"><use href="#i-arrow-ne"/></svg></span><div class="ak-cbox__body">…</div></div>
 ```
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -104,7 +104,7 @@ html
 | `title` |  |
 | `default` |  |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

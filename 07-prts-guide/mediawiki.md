@@ -6,7 +6,7 @@
 
 ---
 
-# 在 MediaWiki 中使用 [​](#在-mediawiki-中使用)
+# 在 MediaWiki 中使用 
 
 皮肤骨架 `skin/`（Arknights 皮肤的参考实现）通过 ResourceLoader 加载全部 CSS；模板、TemplateStyles、Widget 只需要**输出约定好的结构**，不用自己带组件样式。皮肤装上以后，组件那一份（`skins.akds.components`）在别的皮肤的页面上也能 `mw.loader.using`，见[模块与层序](/prts-design/guide/resourceloader#resourceloader-模块)。
 
@@ -40,7 +40,7 @@ prts.wiki 实际部署的是 [mediawiki-skins-Arknights](https://github.com/Moon
 
 活动主题（Gadget 换头图 / 站标 / 主色）见[皮肤骨架 · 头图与主题接口](/prts-design/chrome/theming)；搜索面板的 MW 数据源见[搜索面板 · 在 MediaWiki 里](/prts-design/chrome/search#在-mediawiki-里)。
 
-## 安装 [​](#安装)
+## 安装 
 
 ```
 skins/AKDS/                      ← 仓库的 skin/ 拷过去，LocalSettings 里 wfLoadSkin('AKDS')
@@ -84,14 +84,14 @@ json
 - 要关掉核心的 `mediawiki.searchSuggest`（与搜索面板冲突）：在 `SkinPageReadyConfig` 钩子里把 `search` 置 `false`（Vector 2022 的做法；Skin:Arknights 的 `SkinHooks::onSkinPageReadyConfig()`），见[搜索面板](/prts-design/chrome/search#在-mediawiki-里)。
 - 配置项：`$wgAKDSDefaultTheme`（`os` / `day` / `night`）、`$wgAKDSSearchPalette`（`false` 关掉悬浮搜索面板）；Skin:Arknights 叫 `$wgArknightsThemeDefault` / `$wgArknightsSearchPalette`。
 
-## 明暗主题 [​](#明暗主题)
+## 明暗主题 
 
 - `<html>` 上的类：`skin-theme-clientpref-os | -day | -night`，与 Vector 2022 一致（开了 `clientPrefEnabled` 时，核心的内联脚本首帧前按 cookie `mwclientpreferences` 换类——只对匿名用户、只换 `<html>` 上已有的同名类；`skin.json` 的 `ClientPreferences` 键 MW 1.43 不认）。`tokens.css` 已按这三个类定义两套语义令牌，见[色彩 · 主题机制](/prts-design/foundations/color#主题机制)。
 - 切换：`mw.user.clientPrefs.set('skin-theme', 'night')`；页眉的外观开关就是做这件事。只对未登录用户有效（存 cookie）；登录用户调用会抛错，要皮肤自己存（Skin:Arknights 的做法见[阅读设置](/prts-design/chrome/prefs#skin-arknights-的做法)）。主题类在 `<html>` 上、clientPrefs 的内联脚本早于样式执行，没有 FOUC。
 - **Codex 桥接**：`bridge-codex.css`（生成物，在 `skins.akds.base` 里，只有 Arknights 皮肤加载——放到别的皮肤上会改掉宿主自己的 Codex 配色）把 `--background-color-base`、`--color-progressive`、`--border-color-base` 等 Codex 令牌映射到 PRTS Design 语义令牌，`mw-message-box`、Codex 表单、Echo 弹窗等核心 UI 因此自动跟随；OOUI 少量写死的颜色在 `base/forms.css` 等处覆盖（见[色彩 · Codex / MediaWiki 桥接](/prts-design/foundations/color#codex-mediawiki-桥接)）。
 - 游戏的白色线稿图标统一走 `filter: var(--ak-glyph-filter)`（亮色反相），模板里放游戏图标时给 `<img>` 加 `.ak-glyph`。
 
-## 与现有扩展的配合 [​](#与现有扩展的配合)
+## 与现有扩展的配合 
 
 | 扩展 | 处理 |
 | --- | --- |

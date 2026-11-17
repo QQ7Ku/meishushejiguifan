@@ -6,7 +6,7 @@
 
 ---
 
-# 页面模式 [​](#页面模式)
+# 页面模式 
 
 L5：把组件拼成整页。样例页运行在皮肤骨架里（`preview/`，由 `python3 scripts/build-preview.py` 从 `preview/_src/` 生成），信息结构取自 prts.wiki 现网页面，只换视觉——页面 wikitext 尽量不改，改的是模板输出的 HTML。
 

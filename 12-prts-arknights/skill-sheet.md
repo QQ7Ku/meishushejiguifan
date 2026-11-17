@@ -10,7 +10,7 @@
 
 另一种对比法是[参数矩阵](/prts-design/arknights/skill-matrix)：描述只写一遍、等级横着放。长描述、参数多于三四个时用全等级表；短描述 / 手机优先时用矩阵。
 
-## 全等级表 [​](#全等级表)
+## 全等级表 
 
 `levels` 每项是一级（第 8–10 项 = 专精 Ⅰ–Ⅲ，三星及以下只有 7 项）：`description` 是游戏原始标记，`vars` 是这一级的 blackboard——直接把 `skill_table` 的描述模板和各级 blackboard 传进来，由 [AkRichText](/prts-design/arknights/rich-text) 填数、上色；`init` / `cost` / `duration` 是三列数值，空着的格显示「—」。`highlight` 高亮一行（当前等级），`terms` 给描述里的术语（晕眩）悬停说明。表头卡放在 `#header` 插槽。
 

@@ -6,13 +6,13 @@
 
 ---
 
-# 在纯 HTML 中使用 [​](#在纯-html-中使用)
+# 在纯 HTML 中使用 
 
 不用打包器、不用 Vue，也不在 MediaWiki 里：静态页面、后端模板、CodePen 这类环境，引一张样式表，再照组件文档「HTML」页签里的结构写就行，和 [Primer CSS](https://primer.style/css/) 的用法一样。组件就是**一段约定好的 HTML 结构加上类名**，外观和主题由样式表负责。
 
-## 引入样式 [​](#引入样式)
+## 引入样式 
 
-### CDN [​](#cdn)
+### CDN 
 
 html
 
@@ -25,7 +25,7 @@ html
 - **锁版本**：0.x 阶段次版本号之间可能不兼容，写 `@0.1`（只接收 0.1.x 的修复）或完整版本号，别写 `@latest`。
 - jsDelivr / unpkg 在国内访问不稳定，正式站点建议自托管，见下一节。
 
-### npm [​](#npm)
+### npm 
 
 sh
 
@@ -38,7 +38,7 @@ pnpm add @mooncellwiki/prts-design-css
 
 以上几种方式的内容相同，都是 `standalone.css`：令牌 → 作用域根 → 通用组件 → 方舟组件 → 工具类 → 强制色模式。在 Vue 里用组件见[在 Vue / prts-widgets 中使用](/prts-design/guide/vue)。
 
-## 起步模板 [​](#起步模板)
+## 起步模板 
 
 html
 
@@ -96,7 +96,7 @@ html
 </div>
 ```
 
-## 主题 [​](#主题)
+## 主题 
 
 | 写法 | 效果 |
 | --- | --- |
@@ -129,7 +129,7 @@ html
 
 `tokens.css` 会在根元素上设置 `color-scheme`，浏览器自带的滚动条和表单控件也会跟着切换。两套主题的令牌值见[色彩](/prts-design/foundations/color)。
 
-## 字体 [​](#字体)
+## 字体 
 
 包里**不含字体**。什么字体都不加载也能用，令牌里的回退链会一路退到系统字（中文一般落到苹方 / 微软雅黑）。想让拉丁字形更接近 Arknights 皮肤，可以加载回退链里的开源字体（OFL），`font-family` 名要和令牌里写的一致：
 
@@ -150,14 +150,14 @@ html
 
 也可以直接换成自己的字体：在样式表之后覆盖令牌，例如 `:root { --ak-font-display: "Your Display Font", sans-serif; }`。
 
-## 图标 [​](#图标)
+## 图标 
 
 - 界面线稿图标用内联 SVG：`<svg class="ak-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">…</svg>`。在[图标](/prts-design/foundations/icons)页把「点击复制」切到「内联 SVG」，点哪个就复制哪一段。
 - 颜色跟文字色走（`currentColor`）。放在组件的图标位里（`.ak-btn__icon`、`.ak-message__icon` …）时尺寸由组件决定；单独使用时自己加 `width` / `height`。
 - 旁边没有文字、图标本身有含义时，把 `aria-hidden="true"` 换成 `role="img" aria-label="…"`。
 - 游戏图标（职业、精英化、道具 …）不在包里，图片地址自己提供。白色线稿类的图片加 `.ak-glyph`，亮色主题下会自动反相，见[装饰语言](/prts-design/foundations/decoration#白色线稿图标-ak-glyph)。
 
-## 需要交互的组件 [​](#需要交互的组件)
+## 需要交互的组件 
 
 样式表只负责外观，状态要你自己切换。CSS 认的是原生状态、ARIA 属性和 `is-*` 类：
 
@@ -213,7 +213,7 @@ html
 
 交互多的页面（表单联动、弹层、筛选）直接用 [Vue 实现](/prts-design/guide/vue)更省事：结构、状态、键盘和可访问性都已经做好，样式还是同一张表。
 
-## 按需引入 [​](#按需引入)
+## 按需引入 
 
 只用少数几个组件、又在意体积时，可以按文件引入 `src/` 下的源文件，但**顺序必须和 `standalone.css` 一致**：
 
@@ -229,7 +229,7 @@ html
 - `tokens.css` 和 `scope.css` 必须引，而且要放在最前面。组件之间的先后按 `src/components/index.css` 的顺序；方舟组件（`src/arknights/`）还依赖装饰语言 `src/decor/`；`components/keyframes.css` 是共用的动画。
 - 每多一个文件就多一个请求，大多数情况下单文件版更合适（gzip 后只有 ≈ 22 KB）。
 
-## 包里没有的 [​](#包里没有的)
+## 包里没有的 
 
 | 内容 | 说明 |
 | --- | --- |
@@ -238,7 +238,7 @@ html
 | MediaWiki 正文排版 `base/` | 裸 `h2` / `p` / `table` 这类元素的样式。纯 HTML 页面里的裸元素走浏览器默认或你自己的样式；`base/` 是按 MW 页面写的（会改 `html` / `body`），不在单文件里 |
 | 皮肤骨架 `chrome/` | Arknights 皮肤的页眉、侧栏、页脚这些 |
 
-## 和别的样式放在一起 [​](#和别的样式放在一起)
+## 和别的样式放在一起 
 
 - 类名都带 `ak-` 前缀，令牌都是 `--ak-*`，一般不会和宿主的类名、变量冲突。根元素上除了令牌只设了 `color-scheme`，不给 `html` / `body` / 裸元素写样式。例外有两类：游戏富文本的别名类 `.ba-*` / `.tu-imp`（对应游戏文本里的 `<@ba.vup>` 这类标签，会设颜色和字重）；`[data-rarity]` / `[data-prof]` 属性，只在元素上设 `--ak-*` 变量。
 - 宿主对 `h1`–`h6` / `p` / 列表 / `img` / `code` 这类元素的全局规则，到了作用域里的组件元素上会退回浏览器默认；裸 `<button>` / `<input>` / 勾选框的外观和 Arknights 皮肤上一致。整块是链接的组件（`a.ak-card` …）要加 `ak-not-prose`，才不会被宿主的 `a` 规则染成链接色。详见[作用域 · 作用域里还有什么](/prts-design/components/scope#作用域里还有什么)。

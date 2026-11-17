@@ -6,7 +6,7 @@
 
 ---
 
-# 在 Vue / prts-widgets 中使用 [​](#在-vue-prts-widgets-中使用)
+# 在 Vue / prts-widgets 中使用 
 
 `packages/vue/` 是 PRTS Design 的 Vue 3 实现（npm 包 `@mooncellwiki/prts-design-vue`）：组件输出与 CSS 实现相同的 `.ak-*` 结构，自带状态（`v-model`）、键盘操作与可访问性属性。
 
@@ -14,7 +14,7 @@
 
 Vue 实现全部处于「实验」状态，API 可能调整。
 
-## 样式从哪来 [​](#样式从哪来)
+## 样式从哪来 
 
 组件**不打包 CSS**，样式按宿主从不同地方来；三种宿主上看起来一样。组件放在「作用域根」里——`<AkScope>`（= `class="ak-scope"`）——才有排版基线（字体 / 字号 / 行高 / 前景色），不靠宿主页面的 `<body>`，见[作用域](/prts-design/components/scope)：
 
@@ -47,7 +47,7 @@ import { AkButton, AkScope } from "@mooncellwiki/prts-design-vue";
 
 仓库内的 Storybook / 文档站引的是皮肤全套 `packages/css/src/index.css`；Storybook 工具栏的「宿主」可以切到 Vector 2022 / 站外，看同一个组件在别的宿主上的样子。
 
-## 用法 [​](#用法)
+## 用法 
 
 vue
 
@@ -72,7 +72,7 @@ const tab = ref("skill");
 - 图标用 `<AkIcon name="search" />` 内联渲染，不依赖页面里的 SVG sprite。
 - 游戏素材（道具图、头像）的地址由调用方传入——生产环境是 `media.prts.wiki` 的地址。
 
-## 开发 [​](#开发)
+## 开发 
 
 sh
 

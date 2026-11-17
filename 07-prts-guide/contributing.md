@@ -6,7 +6,7 @@
 
 ---
 
-# 贡献一个组件 [​](#贡献一个组件)
+# 贡献一个组件 
 
 一个组件由这几样东西组成，放在固定位置：
 
@@ -20,7 +20,7 @@ site/<components|arknights>/<id>.md     文档页（或 <id>/index.md + guidelin
 site/.vitepress/entries/<分组>.ts        注册一条：名字、描述、CSS 文件、Vue 组件、状态、Storybook 前缀、现网模板（registry.ts 汇总）
 ```
 
-## 步骤 [​](#步骤)
+## 步骤 
 
 1. **CSS**：在 `packages/css/src/components/`（通用）或 `packages/css/src/arknights/`（游戏数据）加文件，写进该层 `index.css`，然后 `node scripts/css-order.ts --write` 同步 skin.json。类名走 BEM-lite：`.ak-{block}` `__{el}` `--{mod}`，状态 `.is-{state}` / `aria-*`。
 2. **Vue**：`defineProps` 的每个属性写一行 JSDoc——文档站的 Props 表直接读它。只拼类名、不写样式；需要交互的给 `v-model`，键盘与 ARIA 按 WAI-ARIA 模式补齐。
@@ -32,7 +32,7 @@ site/.vitepress/entries/<分组>.ts        注册一条：名字、描述、CSS 
 6. **注册**：在 `site/.vitepress/entries/` 对应分组的文件里加一条（`registry.ts` 汇总它们），侧栏、总览、页头都从这里来。
 7. **导出**：在 `packages/vue/src/index.ts` 导出组件（与要公开的类型）；`pnpm build` 出 `@mooncellwiki/prts-design-vue` 的 dist。
 
-## 命名与约定 [​](#命名与约定)
+## 命名与约定 
 
 - 前缀 `ak-`；BEM-lite：`.ak-{block}__{elem}--{mod}`；状态用 `.is-*` 或 ARIA 属性（`aria-pressed` / `aria-selected` / `aria-current` …）。
 - 数据属性驱动主题色：`data-rarity`、`data-prof`、`data-theme`、`data-color`（模组类型）。
@@ -49,7 +49,7 @@ site/.vitepress/entries/<分组>.ts        注册一条：名字、描述、CSS 
   - 只给读屏的文字用 `.ak-sr-only`（在 `utilities.css`，不在骨架里）。
   - 不直接 `url()` 游戏素材：图片经皮肤的素材接口变量取（如 `var(--ak-item-bg-1, none)`，声明在 `base/skin-assets.css`），站外没有就是回退值。
 
-## 仓库结构 [​](#仓库结构)
+## 仓库结构 
 
 ```
 packages/tokens/src/          令牌源（W3C DTCG JSON5）：base/ 原始色板 · 字体 · 尺寸 · 动效 · 层级 · functional/ 明暗主题 · 页眉接口 · 控件 · bridge/ Codex 桥接
@@ -87,7 +87,7 @@ scripts/                      fetch-*.py · fetch-vector-css.ts · build-preview
 e2e/                          Playwright Test：hosts / snapshots / stories 三组（配置在 playwright.config.ts；support/ 是静态服务与计算样式快照）
 ```
 
-## 改 CSS 之后 [​](#改-css-之后)
+## 改 CSS 之后 
 
 重构类改动（不应改变外观的）用样式快照比对（e2e 用 Playwright 的 headless shell，第一次先 `pnpm exec playwright install --only-shell chromium`）：
 

@@ -6,7 +6,7 @@
 
 ---
 
-# MediaWiki 内容样式 [​](#mediawiki-内容样式)
+# MediaWiki 内容样式 
 
 L1 是皮肤最重要的一层：把编辑写出来的 wikitext 渲染得好看——标题、链接、列表、表格、图片、目录、引用、消息框、折叠、TabberNeue、分类。这一层的规则全部落在 **MediaWiki 自己输出的 HTML** 上（解析器产物 `.mw-parser-output`，以及分类栏、消息框、差异 / 历史这类核心 UI），编辑不用写任何类名，写普通的 wikitext 就得到这套外观。
 
@@ -14,7 +14,7 @@ L1 是皮肤最重要的一层：把编辑写出来的 wikitext 渲染得好看�
 
 源文件在 `packages/css/src/base/`，一块一个文件，按 `base/index.css` 的顺序加载，排在所有组件之前——组件靠同特指度后到覆盖正文排版（层序见[模块与层序](/prts-design/guide/resourceloader#层序)）。
 
-## 作用域 [​](#作用域)
+## 作用域 
 
 | 容器 | 是什么 | 这一层在这里做什么 |
 | --- | --- | --- |
@@ -24,7 +24,7 @@ L1 是皮肤最重要的一层：把编辑写出来的 wikitext 渲染得好看�
 
 正文排版规则（标题、段落、列表、引用、链接色）都带 `:not(:where(.ak-not-prose, .ak-not-prose *))`：模板把 `ak-not-prose` 标在输出的最外层，子树就退出正文排版，链接回到 `color: inherit`。为什么要这样见[设计理念 · prose / not-prose](/prts-design/foundations/principles#prose-not-prose)。
 
-## 文件 [​](#文件)
+## 文件 
 
 | 文件 | 管什么 | 页面 |
 | --- | --- | --- |
@@ -40,7 +40,7 @@ L1 是皮肤最重要的一层：把编辑写出来的 wikitext 渲染得好看�
 | `special-pages.css` | 差异、历史、最近更改、搜索结果、通知、Echo、Minerva | [特殊页面](/prts-design/content/special-pages) |
 | `print.css` | 打印 | [本页](#打印) |
 
-## 全局基底 [​](#全局基底)
+## 全局基底 
 
 `root.css` 是 `base/` 的第一个文件（MW 里在 `skins.akds.base` 模块，前面只有 `bridge-codex.css` 与 `base/skin-assets.css` 两个纯变量文件——皮肤的样式模块按模块名字母序输出，这个模块排在最前）：
 
@@ -49,6 +49,6 @@ L1 是皮肤最重要的一层：把编辑写出来的 wikitext 渲染得好看�
 - 滚动条细（`scrollbar-width: thin` / 8px），颜色 `--ak-scrollbar`。
 - `prefers-reduced-motion: reduce` 时所有动画与过渡缩到 0.01ms、动画一生成就落在终态——不是 `none`，`animationend` 之类的事件仍会派发，等它们的脚本不会卡住；但动画不能当计时器用（停住的动画也会立刻「播完」，见[可访问性 · 用户偏好](/prts-design/foundations/accessibility#用户偏好)）。
 
-## 打印 [​](#打印)
+## 打印 
 
 白底黑字；编辑段落链接、`.noprint`、分类栏、指示器、内联目录不打印；链接退回继承色 + 下划线；表头浅灰。皮肤骨架那一半（页眉、侧栏、目录导轨、页脚、动作簇、回到顶部）在 `chrome/responsive.css` 的 `@media print` 段，见[皮肤骨架 · 响应式](/prts-design/chrome/responsive#打印)。

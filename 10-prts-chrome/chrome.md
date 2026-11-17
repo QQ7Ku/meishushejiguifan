@@ -6,7 +6,7 @@
 
 ---
 
-# 皮肤骨架 [​](#皮肤骨架)
+# 皮肤骨架 
 
 L2 是正文之外的一切：页眉、头图、侧栏、页面头（标题与动作簇）、目录、正文白纸、分类栏的位置、页脚、搜索面板。它由皮肤的 `skin.mustache` 输出，编辑和模板都碰不到；样式在 `packages/css/src/chrome/`，排在所有组件之后加载——页眉里的 `.ak-btn` / `.ak-menu` / `.ak-fab` 靠同特指度后到覆盖。
 
@@ -14,7 +14,7 @@ L2 是正文之外的一切：页眉、头图、侧栏、页面头（标题与�
 
 视口示例活动主题
 
-## DOM 约定 [​](#dom-约定)
+## DOM 约定 
 
 与 `skin.mustache` 一一对应（完整的 mustache 数据映射见[入门 · skin.mustache 结构](/prts-design/guide/skin-template)）：
 
@@ -56,7 +56,7 @@ body.skin-arknights
 
 `demo-theme.css` 不在 `chrome/index.css` 里、也不进 `skin.json`：它是一份示例 Gadget，只在预览 / 文档站里用。
 
-## 布局 [​](#布局)
+## 布局 
 
 `.ak-layout` 只有两列：侧栏 `--ak-sidebar-w` + 主列。目录导轨**不是第三列**，而是主列 `.ak-main` 的右内边距让出来的（`--ak-toc-w + --ak-gutter`）——这样 `aside.ak-toc` 在 DOM 上可以待在页面标题下面（属于页面而不是布局），窄屏收起时就地变成按钮下面的浮层，不需要第二份 DOM。整体最宽 1680，超宽屏两边留白；页眉、页脚用同一个 1680 容器，左右缘对齐。阅读列的宽度 `--ak-content-max` 只由「主列封顶 − 导轨内边距」得出，`.ak-main__inner` 上不另锁一道。
 
@@ -77,17 +77,17 @@ body.skin-arknights
 | `.ak-layout--wide` | 整体不限 1680、正文不限阅读列（大表、整页工具） |
 | `.ak-layout--reading` | 居中阅读版式（目前没有页面用；启用时页眉要另给一套列宽） |
 
-## 正文白纸 [​](#正文白纸)
+## 正文白纸 
 
 `.ak-body` 是一张浅色「纸」（`--ak-bg-surface` + 1px 细框 + 24 / 32px 内边距），正文 `.mw-body-content` 放在里面；`.ak-body--flat` 去掉纸（首页这类自己排版的页面），各宽度都不垫边距——窄屏白纸的内边距与左右贴边的负外边距不落到它上面，正文和页眉一样只隔一个 gutter。纸底 `.ak-body-foot` 是 MW 的 `#footer-info`：最后编辑时间（等宽数字）· 版权声明。分类栏 `#catlinks` 在纸外、紧贴其下。特殊页面（`Special:` 命名空间、搜索页）内边距收到 20px。
 
-## 外壳 [​](#外壳)
+## 外壳 
 
 - `body.skin-arknights` 是纵向 flex，页脚 `margin-top: auto` 贴底——内容短的页面页脚也在视口底部。
 - `.ak-skip`「跳到内容」：平时完全移出视口，键盘 Tab 到它才出现在左上角（主色实底）。
 - `.ak-sr-only`：只给读屏器的文字（动作簇的当前项、只有图标的按钮名）。
 
-## CSS [​](#css)
+## CSS 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

@@ -6,11 +6,11 @@
 
 ---
 
-# 排版 [​](#排版)
+# 排版 
 
 `base/typography.css`：wikitext 里最常见的那些元素——标题、段落、链接、行内元素、列表、引用、代码。全部是 MW 解析器的原生输出，编辑什么类名都不用写。
 
-## 标题 [​](#标题)
+## 标题 
 
 h2 = 官网式标题：左侧 4px 青色色条 + 1px 细底线 + 底线上 96px 的青色短横条；h3 = 3px 灰色色条；h4–h6 只降字号（h6 大写加字距，给英文小节用）。h1 是页面标题，归皮肤骨架（见[页面头](/prts-design/chrome/page-header)）。
 
@@ -32,7 +32,7 @@ html
 
 「悬停显形」与编辑链接靠右都要求新版标题 DOM（`<div class="mw-heading"><h2>…</h2><span class="mw-editsection">…</span></div>`）：站点须设 `$wgParserEnableLegacyHeadingDOM = false`。否则解析器仍输出 `<h2><span class="mw-headline">…</span><span class="mw-editsection">…</span></h2>`，这几条规则不生效（标题本身的色条照常）。
 
-## 链接与行内 [​](#链接与行内)
+## 链接与行内 
 
 链接色 `--ak-link`，悬停加 1px 下划线；红链 `a.new` 用 `--ak-link-new`；外链 `a.external` 后面跟一枚 mask 画的外链图标（`currentColor`，随链接色变；`.plainlinks` 里不画）；自身链接 `a.mw-selflink` 不是链接，只加粗。`<mark>` 是淡青底——与 `:target` 引用、表格当前行同一套「高亮」语言，不是荧光笔黄。
 
@@ -65,7 +65,7 @@ html
 <p>带短横条的分隔线之后。<small>small 是 14px</small></p>
 ```
 
-## 列表 [​](#列表)
+## 列表 
 
 无序列表的项目符号是 5px 的青色菱形（正方形转 45°，致敬源石，见[设计理念 · 菱形](/prts-design/foundations/principles#菱形-源石)；嵌套一层变灰）；有序列表的编号用 Bender 粗体青色（`::marker`）；定义列表 `dt` 加粗、`dd` 缩进。
 
@@ -77,7 +77,7 @@ html
 <dl><dt>信赖</dt><dd>提升至 100% 后属性加成达到上限。</dd><dt>潜能</dt><dd>通过重复获得干员提升。</dd></dl>
 ```
 
-## 引用与代码 [​](#引用与代码)
+## 引用与代码 
 
 `blockquote`：左侧 4px 青条 + 浅一档的底、次要文字色；`<poem>` 只有一道 1px 左线（表格单元格里不画：模板把描述包进 poem 只为保留换行）。`pre`（含 SyntaxHighlight 的 `.mw-highlight`）是下沉底 + 3px 青色色条 + 1px 细框——色条和细框用 `border-image` 直角拼接，不让不同宽度的 border 在角上斜接出一道小斜边（见[装饰语言 · 色条 + 细框](/prts-design/foundations/decoration#色条-细框)）。正文里的 `pre` 自动折行（同核心；行首空格、`<pre>` 标签、Flow 留言都会产出 `pre`，中文帖子行首空两格缩进时整段都在里面），代码——`.mw-highlight` 和代码页的 `.mw-code`——不折、横向滚动。行内 `code` 是浅底细框的小块。
 
@@ -90,7 +90,7 @@ html
 }}</pre>
 ```
 
-## 工具类 [​](#工具类)
+## 工具类 
 
 | 类 | 作用 |
 | --- | --- |
@@ -99,6 +99,6 @@ html
 | `.ak-text-sm` / `.ak-text-xs` | 14 / 12px |
 | `.ak-muted` | `--ak-fg-muted` 次要文字 |
 
-## CSS [​](#css)
+## CSS 
 
 正文排版规则上的 `:not(:where(.ak-not-prose, .ak-not-prose *))` 后缀在下表里省略了——它的特指度是 0，不改变原规则的权重。

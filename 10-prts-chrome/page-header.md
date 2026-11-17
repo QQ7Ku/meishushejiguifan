@@ -6,13 +6,13 @@
 
 ---
 
-# 页面头 [​](#页面头)
+# 页面头 
 
 `header.ak-page-header`：正文白纸上方的两行——上行是面包屑（或命名空间小标）与页面状态指示器，下行是页面标题 `h1#firstHeading` 与**页面动作簇**（Citizen 式）。上行没有内容时整行收起、不占高度：主名字空间的页面没有命名空间小标，没有指示器、或只有扩展先放着的空指示器（SMW 的实体检查查到问题前是空的）都算没有内容；脚本事后把指示器填上，这一行会自己出来（`:has()`）。
 
 视口示例活动主题
 
-## 标题 [​](#标题)
+## 标题 
 
 h1 思源 32px 800，左侧 8px 青色粗条（比正文 h2 的 4px 粗一档）；英文 / 日文副名放在 `<span class="ak-en">` 里，另起一行、半号、灰色大写。命名空间前缀 `.mw-page-title-namespace` 变灰。手机上随 `--ak-fs-h1` 的窄屏值降到 26px（见[字号 · 窄屏](/prts-design/foundations/typography#窄屏)）。
 
@@ -20,7 +20,7 @@ h1 思源 32px 800，左侧 8px 青色粗条（比正文 h2 的 4px 粗一档）
 
 命名空间小标 `.ak-page-header__ns` 与卡片 eyebrow 同一种 overline：不可点的装饰文字，用 `--ak-fg-muted`，不上青（见[设计理念 · DO / DON'T](/prts-design/foundations/principles#do-don-t)）。
 
-## 动作簇 [​](#动作簇)
+## 动作簇 
 
 标题 `flex: 1`，动作簇靠右、底边与标题青条底对齐；标题很长时整簇换到标题下方。不再有 Vector 那样整条下划线的页签——簇里没有「当前」要标。
 
@@ -87,7 +87,7 @@ html
 
 动作簇的图标由皮肤映射（核心不给 views / associated-pages 的 `icon` 键）：talk → speechBubbles、history → history、edit → edit、viewsource → wikiText、view → eye，讨论页上的命名空间页签换 arrowPrevious 表示返回。
 
-## CSS [​](#css)
+## CSS 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

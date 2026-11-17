@@ -6,13 +6,13 @@
 
 ---
 
-# 页脚 [​](#页脚)
+# 页脚 
 
 页脚和页眉一样是「框」：两套主题下都是黑的，读 `--ak-chrome-*`（不读 `--ak-bg-inverse`——那是给反白组件用的，暗色下是白）。顶边一条 4px 的活动主色斜纹，右下角一个几乎看不见的 PRTS 水印。
 
 视口示例活动主题
 
-## 结构 [​](#结构)
+## 结构 
 
 品牌 + 三列链接（浏览 / 参与 / 关于），底栏左文字、右徽章。≤639 链接列两两并排、品牌独占一行，底栏竖排。底栏右内边距给「回到顶部」`.ak-fab` 让位，滚到底时不压住徽章。
 
@@ -39,7 +39,7 @@ html
 </footer>
 ```
 
-## 链接 [​](#链接)
+## 链接 
 
 链接的字号跟所在区块走：链接列是 `--ak-fs-sm`；品牌描述段和底栏文字是 `--ak-fs-xs` 的行文，里面的链接**继承字号**，不再叠透明度（容器已经降到 .6），靠下划线与正文区分。生产皮肤里这两处是解析过的 wikitext（`MediaWiki:Arknights-footer-desc` / `-footer-tagline`），可以直接写链接。
 
@@ -56,7 +56,7 @@ html
 </footer>
 ```
 
-## 徽章 [​](#徽章)
+## 徽章 
 
 `$wgFooterIcons` 的输出结构原样保留（`ul#footer-icons > li#footer-*ico > a.cdx-button.cdx-button--fake-button > img`，一个 `li` 里可以有好几枚）：徽章**原样显示**——26px 高、无底板、不灰度、不降透明、无悬停效果（只保留键盘焦点描边）；`cdx-button` 假按钮的圆角 / 最小高度 / 内边距归零，站点配置里的内联 `margin-left` 用 `!important` 压掉。顺序 = `$wgFooterIcons` 的键序。
 
@@ -83,7 +83,7 @@ mustache 里的 data-footer
 
 核心会把 `data-footer.*` 的 `html-items` 剥掉，只留 `array-items[{id, html}]`，页脚三处必须像 Vector 那样写成 `{{#array-items}}<li id="{{id}}">{{{html}}}</li>{{/array-items}}`，用 `{{{html-items}}}` 会渲染成空。
 
-## CSS [​](#css)
+## CSS 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

@@ -10,7 +10,7 @@
 
 写法参考 Naive UI 的 `n-card`：`title` + 默认插槽（正文）+ `#footer`（页脚）。解锁条件是纯文本时用 `unlock`，要放精英阶段 / 信赖 / 关卡号时用 `#unlock` 插槽；前面的小标默认「解锁条件」，用 `unlock-label` 改写，传空串不出（密录 / 悖论模拟的条件本身就是「精英化图标 Lv.1 · 信赖图标 50%」）。
 
-## 未获得时档案 [​](#未获得时档案)
+## 未获得时档案 
 
 [Storybook ↗](/prts-design/storybook/?path=/story/arknights-archive--intel)
 
@@ -38,7 +38,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 干员密录 · 悖论模拟 [​](#干员密录-·-悖论模拟)
+## 干员密录 · 悖论模拟 
 
 页脚放阅读 / 关卡 / 首通奖励；「小标 + 内容」成对的包一层 `.ak-archive__group`，窄屏放不下时整组换行，小标不会单独留在上一行。`AkArchivePlay` 是页脚里那块黑底「阅读 / 播放」：有 `href` 时是链接（去密录页），没有时是按钮。
 
@@ -104,9 +104,9 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkArchive [​](#akarchive)
+### AkArchive 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -121,7 +121,7 @@ html
 | `unlock` | 解锁条件（代替 unlock） |
 | `footer` | 页脚：AkArchivePlay「阅读密录」、关卡、首通奖励 … |
 
-### AkArchivePlay [​](#akarchiveplay)
+### AkArchivePlay 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -131,7 +131,7 @@ html
 | --- | --- |
 | `default` | 文字（阅读密录 · 一鼓作气） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

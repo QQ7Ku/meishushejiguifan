@@ -6,19 +6,19 @@
 
 ---
 
-# 目录 · 折叠 · 引用 [​](#目录-·-折叠-·-引用)
+# 目录 · 折叠 · 引用 
 
 四个小文件：`base/toc.css`（正文内联目录）、`base/collapsible.css`（`mw-collapsible`）、`base/sections.css`（章节折叠，皮肤给每个顶层 h2 的开关）、`base/references.css`（`<ref>` / `<references />`）。
 
-## 内联目录 [​](#内联目录)
+## 内联目录 
 
 皮肤的目录在正文右侧导轨 / 窄屏浮层里（`toc: false` + 皮肤自己渲染，见[皮肤骨架 · 目录](/prts-design/chrome/toc)）。正文里的 `.toc` 是旧式内联目录（`#toc`：旧版解析器输出、模板手写的那种），给它同一套外观：顶部 3px 青条（`border-image` 与 1px 框直角拼接）、编号灰色等宽数字、标题大写加字距。
 
-## 折叠 [​](#折叠)
+## 折叠 
 
 jquery.makeCollapsible 的 `mw-collapsible`：开关 `[展开]` / `[折叠]` 靠右浮动，方括号由 CSS 画（`mw-collapsible-toggle-default`）。加 `.ak-collapse-box` 变成盒式面板——开关占满一条浅底标题栏，内容在框里；适合「剧透」「完整数据」这类整块收起的内容。
 
-## 章节折叠 [​](#章节折叠)
+## 章节折叠 
 
 prts 并成 Arknights 单皮肤、`m.` 域名回主域之后，手机上 Minerva 那套「点章节标题收起 / 展开」就没了——反馈「新界面折叠功能缺失」说的是这个（干员页的特性 / 获得方式 / 天赋 / 技能、集成战略页的区域 / 事件节点 / 结局……都是顶层章节）。皮肤把它补回来，而且不只手机：
 
@@ -31,7 +31,7 @@ prts 并成 Arknights 单皮肤、`m.` 域名回主域之后，手机上 Minerva
 
 去[干员页样例](https://mooncellwiki.github.io/prts-design/preview/operator.html)点任一章节标题试试。
 
-## 引用 [​](#引用)
+## 引用 
 
 `<sup class="reference">` 缩小；参考文献列表 14px 次要文字色，`.reflist.ak-cols-2` 分两栏。点角标跳到的那条（`:target`）是淡青底 + 细描边——与 `<mark>`、表格当前行同一套高亮语言；它和点「↑」跳回的角标都同标题一样停在固定页眉下方，不会被盖住（`base/typography.css` 给正文里的 `:target` 加了 `scroll-margin-top`）。
 
@@ -45,4 +45,4 @@ html
 
 点「展开」试试（示例里的开合由预览脚本模拟，MW 上是核心的 jquery.makeCollapsible）。
 
-## CSS [​](#css)
+## CSS 

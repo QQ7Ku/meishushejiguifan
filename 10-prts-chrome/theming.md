@@ -6,7 +6,7 @@
 
 ---
 
-# 头图与主题接口 [​](#头图与主题接口)
+# 头图与主题接口 
 
 prts.wiki 大活期间会换头图、顶栏底图、站标、侧栏配色（现网 `ext.gadget.seventhStyle` 改的就是这些：`body` 背景大图、`#mw-head` 左右底图、`.mw-wiki-logo`、`#MenuSidebar > p` 渐变）。新皮肤把这些位置抽成一组**接口变量**（令牌 `chrome.*`，生成在 `tokens.css` §2d），活动主题——一份 Gadget 或 `MediaWiki:Common.css`——只在 `:root` 上覆盖变量，**不碰任何选择器**。卸载 Gadget 即恢复默认，不用 purge 页面缓存。
 
@@ -16,7 +16,7 @@ prts.wiki 大活期间会换头图、顶栏底图、站标、侧栏配色（现�
 
 曾把同一幅画右段裁一条、左缘渐隐塞进页眉当「顶栏底图」（现网 Garanheadright 的做法）——白色图标压在天空上读不清，横向渐入也像贴上去的，去掉了；`--ak-chrome-image` 只留给深色角饰。
 
-## 接口变量 [​](#接口变量)
+## 接口变量 
 
 | 接口变量 | 默认 | 作用 |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ html.skin-theme-clientpref-night { --ak-keyart-image: url(//media.prts.wiki/…/
 - **页眉本身在两套主题下都是黑的**，所以角饰 / 站标只需准备一套；头图与画布图要分昼夜，就按 `html.skin-theme-clientpref-day | night` 分写（跟随系统时另加 `@media (prefers-color-scheme: dark)` 分支，`demo-theme.css` 里有写法）。
 - 只换 `--ak-theme-accent` 时正文不动，只有「框」在换——这是有意的：活动皮不该把内容页读起来的对比度也一起赌上。想连正文的链接 / 选中色一起换，再覆盖 `--ak-accent`（亮 / 暗各写一次）。
 
-## 头图 [​](#头图)
+## 头图 
 
 `.ak-keyart` 是垫在 `.ak-layout` 背后的一幅通栏画，皮肤恒输出、默认 `--ak-keyart-h: 0`。它是「背景」不是「横幅」：盒子的下外边距取负，把自己的高度还给版面，侧栏 / 页面标题 / 目录照常从页眉之下排起、压在画上，头图不把正文往下推（现网是整幅 body 背景 + 内容负 `margin-top` 顶上去，效果相同）；`--ak-keyart-reveal` 是留在版面之上不被压住的一段，默认 72px——顶满的话版面第一行贴着页眉、正好压在画最清楚的地方，留一小条两边都透气。画从**页面顶端**铺起：盒子上移一个页眉高、再用同样的 `padding-top` 把内容压回页眉之下，于是画的顶端在粘性页眉（更高的 z-index）背后——页眉是压在画上的一块均匀黑玻璃，黑框 + 画是一整块，不是「顶栏一张、头图一张」两段裁切。底部按 `--ak-keyart-fade` 渐隐进画布色（取 `min(-fade, -h)`：高度为 0 时不会往页眉后面画渐隐）；`--ak-keyart-bg` 默认透明。
 
@@ -73,4 +73,4 @@ html.skin-theme-clientpref-night { --ak-keyart-image: url(//media.prts.wiki/…/
 - 头图上要放活动标题 / 倒计时，Gadget 往 `.ak-keyart__inner` 里塞内容（它与页眉三列同宽、在页眉之下，高度 = 露出段 `--ak-keyart-reveal`，默认 72px，放内容要调高）；`.ak-keyart` 带 `aria-hidden`，放可读内容时记得去掉。
 - 画布底纹 `--ak-canvas-image` 画在 `body.skin-arknights` 上，叠在 `--ak-bg-canvas` 之上。
 
-## CSS [​](#css)
+## CSS 

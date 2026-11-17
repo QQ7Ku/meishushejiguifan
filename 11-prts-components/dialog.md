@@ -10,7 +10,7 @@
 
 **先想想是不是非用不可**：能就地完成的（撤销代替确认、行内展开代替弹窗）就别弹。
 
-## 确认对话框 [​](#确认对话框)
+## 确认对话框 
 
 写法同 Naive UI 的 `n-modal`（`preset="dialog"`）：`v-model` 是否打开，`title` 标题，`positive-text` / `negative-text` 在底栏放确认（黑白反转，游戏内 `btn_on`）/ 取消两枚按钮，点了分别触发 `positive-click` / `negative-click` 并关闭。
 
@@ -63,7 +63,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 尺寸 · 自定义底栏 · 不可随手关 [​](#尺寸-·-自定义底栏-·-不可随手关)
+## 尺寸 · 自定义底栏 · 不可随手关 
 
 `size`：`sm` 420 · `md` 640（默认）· `lg` 900 · `full` 占满 96vw × 92vh。`#header` / `#footer` 插槽换掉标题与底栏按钮。不可逆的动作可以关掉遮罩与 `Esc`（`:mask-closable="false"` `:close-on-esc="false"`）并去掉 ✕（`:closable="false"`），逼读者明确点一个按钮——危险按钮配 `stripes`。
 
@@ -113,7 +113,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 可访问性 [​](#可访问性)
+## 可访问性 
 
 用原生 `<dialog>` + `showModal()`，浏览器负责大部分：
 
@@ -122,7 +122,7 @@ html
 - **名字**：`title` 作 `aria-labelledby`；没有标题时写 `label`（`aria-label`）。
 - 对话框里的提示、下拉菜单按 `Esc` 只收起自己，不会连对话框一起关。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -148,7 +148,7 @@ html
 | `header` | 标题（代替 title） |
 | `footer` | 底栏按钮（代替 positive-text / negative-text 那两枚），右对齐 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 模板 / Gadget 输出 `dialog.ak-dialog(.ak-dialog--sm …)` > `.ak-dialog__head( .ak-dialog__title + 关闭按钮 )` + `.ak-dialog__body` + `.ak-dialog__foot`，脚本里 `showModal()` 打开（预览站的 `data-dialog-open="#id"` / `data-dialog-close` 就是这么做的）。同一个文件里还有抽屉 `.ak-drawer--left/--right`（`.is-open` 滑入）与全屏遮罩 `.ak-overlay`——皮肤的手机侧栏在用，暂无 Vue 版。
 

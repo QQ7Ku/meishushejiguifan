@@ -6,7 +6,7 @@
 
 ---
 
-# 模板与 TemplateStyles [​](#模板与-templatestyles)
+# 模板与 TemplateStyles 
 
 组件类全部是纯 CSS，随皮肤加载，**不需要 JS**：模板 / Lua 直接输出约定好的 HTML 结构即可，外观与明暗主题由皮肤保证。每个组件页的示例都有「HTML」页签——那是 Vue 实现实际渲染出的结构，模板照着输出，外观一模一样：
 
@@ -19,24 +19,24 @@ html
 </div>
 ```
 
-## 规则 [​](#规则)
+## 规则 
 
 - **最外层标 `ak-not-prose`**：子树就不受正文排版（标题色条、列表菱形符、链接色）影响——整块是链接的组件尤其需要。见[设计理念 · prose / not-prose](/prts-design/foundations/principles#prose-not-prose)。
 - **TemplateStyles 只写模板特有的布局**：组件 CSS 已随皮肤加载，不要在模板样式表里再抄一份。要颜色 / 尺寸时直接引令牌 `var(--ak-accent)`（css-sanitizer 5.x 支持自定义属性），不写死色值——两套主题才都成立。
 - **页面级的「少做点什么」不归模板**：去标题、去目录、去白纸这类动皮肤 DOM 的事 TemplateStyles 够不到（它给所有选择器加 `.mw-parser-output` 前缀），由皮肤负责，见[首页 · 页面与皮肤的分工](/prts-design/patterns/home#页面与皮肤的分工)。
 - 类名、状态类、数据属性的约定见[贡献一个组件 · 命名与约定](/prts-design/guide/contributing#命名与约定)。
 
-## Lua：富文本、稀有度、职业 [​](#lua-富文本、稀有度、职业)
+## Lua：富文本、稀有度、职业 
 
 - gamedata 富文本 `<@ba.vup>x</>` 转成 `<span class="ak-rt-vup">x</span>`；术语 `<$ba.stun>x</>` 转成 `<span class="ak-rt-term" data-ak-tip="说明">x</span>`（也认别名 `.ba-vup` 这类，见[富文本 RichText](/prts-design/arknights/rich-text)）。
 - 稀有度：容器写 `data-rarity="6"`，子元素用 `.ak-r-*` 便捷类或 `var(--ak-r)`（见[稀有度](/prts-design/arknights/rarity#稀有度色轨)）。职业色：`data-prof="warrior"`（见[职业](/prts-design/arknights/profession#职业色)）。
 
-## 图标 [​](#图标)
+## 图标 
 
 - 界面线稿图标从皮肤输出的 SVG sprite 取：`<svg class="ak-icon"><use href="#i-search"/></svg>`（图标名见[图标](/prts-design/foundations/icons)）。现网模板用 MDI 图标名的（`{{Cbox2|mdi=true|icon=…}}`），MDI 名 → `i-*` 名的对照表由模板维护，缺的图标往 sprite 里补。
 - 游戏图标（职业 / 精英 / 潜能 / 专精 / 稀有度 / 分支 / 势力）用 `File:` 命名空间里的现网文件，模板用 `{{filepath:}}` 拼地址；白色线稿类加 `.ak-glyph`（见[图标 · 游戏图标](/prts-design/foundations/icons#游戏图标)）。
 
-## 表单与交互 [​](#表单与交互)
+## 表单与交互 
 
 - Widget / 模板里直接写裸 `<input>` `<select>` `<button>` 即可，皮肤兜底（表格里自动紧凑、跟随单元格对齐）；要标签 / 帮助 / 错误文案、前后缀拼接、常显 − / + 步进、方舟风的勾选开关，再用 `.ak-field` / `.ak-input-group` / `.ak-number` / `.ak-check` / `.ak-switch`，见[表单控件](/prts-design/content/forms)。
 
@@ -56,7 +56,7 @@ html
 
 不想被这层委托接管的容器（状态由 Vue 管）标 `data-no-toggle`：芯片 `.ak-chip`、折叠面板标题栏、分段按钮组 `.ak-btn-group` / 精英阶段 `.ak-phase-tabs` / 技能等级 `.ak-skill-levels`、语音播放钮 `.ak-voice__play`、技能参数矩阵 `.ak-skill-matrix` 的列高亮，这几处委托都认它（`closest`，标在容器或元素上都行）；Vue 实现里对应的组件（AkChip / AkVoiceList / AkPanel / AkButtonGroup / AkRadioGroup / AkPhaseTabs / AkSkillLevels / AkVoice / AkSkillMatrix）都已自带，prts-widgets 里用不着再标。标签页只接管 `.ak-tabs[data-tabs]`、复选开关只接管 `input[data-toggle-class]`，是 opt-in，Vue 版不写这些属性就不会被碰。
 
-## 现网模板 → 组件 [​](#现网模板-→-组件)
+## 现网模板 → 组件 
 
 | 现网模板 | 组件 | 说明 |
 | --- | --- | --- |

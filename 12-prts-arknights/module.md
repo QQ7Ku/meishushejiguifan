@@ -10,7 +10,7 @@
 
 写法参考 Naive UI 的 `n-card`（`#header-extra`）：头部走 props，故事是默认插槽；三张表的行放在具名插槽里——`#stages` 放 `AkModuleStage`、`#unlock` 放 `AkModuleUnlock`，表头由卡片画。解锁任务是纯文本时用 `tasks`，要链接关卡号时用 `#tasks` 插槽写 `<li>`。
 
-## 完整卡片 [​](#完整卡片)
+## 完整卡片 
 
 `AkModuleStage` 的 `stats` 按写的顺序排、数值绿字，`kicker` 是反色小标（特性追加 / 天赋更新），描述写在默认插槽里；`AkModuleUnlock` 的 `#requirement` 放信赖 / 精英阶段 / 任务标签，默认插槽放材料（[道具](/prts-design/arknights/item)）。
 
@@ -92,7 +92,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 故事折叠 [​](#故事折叠)
+## 故事折叠 
 
 故事默认定高 5 行、框内可滚动（同现网 ：不展开也读得到全文），「全文阅读」去掉定高撑开、「收起全文」收回。展开态是组件自己的状态，也可以用 `v-model` 接出来（外面放「全部展开」之类的开关）。无论展开与否，全文都在 DOM 里，可被搜索。
 
@@ -165,7 +165,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 原型证章 [​](#原型证章)
+## 原型证章 
 
 `:collapsible="false"`：短文全文展开、不出开关；不写 `color`（灰条）；`#header-extra` 放说明标签。
 
@@ -195,15 +195,15 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 键盘与可访问性 [​](#键盘与可访问性)
+## 键盘与可访问性 
 
 - 「全文阅读」是 `<label>` 包着的原生复选框（`aria-controls` 指向故事），Tab 聚焦、Space 切换。复选框本身是 0×0 的隐形控件，焦点环画在整个开关上。
 - 「说明 ⓘ」可聚焦，聚焦时显示解释（同悬停）。
 - 阶段条是装饰（`aria-hidden`），读屏只读「STAGE n」。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkModule [​](#akmodule)
+### AkModule 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -229,7 +229,7 @@ html
 | `tasks` | 解锁任务：若干 <li>（排在 tasks 之后） |
 | `unlock` | 解锁需求与材料表的行：若干 AkModuleUnlock |
 
-### AkModuleStage [​](#akmodulestage)
+### AkModuleStage 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -241,7 +241,7 @@ html
 | --- | --- |
 | `default` | 特性 / 天赋变化的描述（可带富文本） |
 
-### AkModuleUnlock [​](#akmoduleunlock)
+### AkModuleUnlock 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -252,7 +252,7 @@ html
 | `default` | 材料消耗：一排 AkItem（AkItemList） |
 | `requirement` | 解锁需求：信赖 / 精英阶段与等级 / 任务标签，横排换行 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

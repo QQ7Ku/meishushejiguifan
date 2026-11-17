@@ -6,9 +6,9 @@
 
 ---
 
-# 模块与层序 [​](#模块与层序)
+# 模块与层序 
 
-## ResourceLoader 模块 [​](#resourceloader-模块)
+## ResourceLoader 模块 
 
 `skin/skin.json` 里的样式模块按「随组件走」与「只属于皮肤」拆开——组件那一份别的皮肤也能加载（prts-widgets / 模板在 Vector 2022 上用，见[在 Vue / prts-widgets 中使用](/prts-design/guide/vue#样式从哪来)）：
 
@@ -29,7 +29,7 @@
 - **带 `dependencies` 的模块不是 style-only**（`FileModule::getType()` → `LOAD_GENERAL`），放进皮肤 `styles` 会被跳过（日志里是 "Unexpected general module in styles queue"）。所以 `skins.akds.components` 不靠依赖拿令牌，而是自己带上 `tokens.css` + `scope.css`：别的皮肤 `mw.loader.using` 一个模块就齐；Arknights 皮肤上它已经在 `styles` 里（状态 ready），这行是空操作。
 - **动态加载的样式插在哪**：`mw.loader` 把样式 `<style>` 插在 `<meta name="ResourceLoaderDynamicStyles">` 之前——皮肤样式之后、`site.styles`（`MediaWiki:Common.css` / `Vector.css`，由 `OutputPage::buildExemptModules()` 输出在标记之后）之前。所以别的皮肤上 `skins.akds.components` 压得过 Vector 自己的规则，Common.css 里同特指度的规则却压得过它；对照页 / Storybook 的 Vector 宿主因此把现网 `site.styles` 抓成 `site.css` 排在组件样式之后一起比。
 
-## 层序 [​](#层序)
+## 层序 
 
 ResourceLoader 把一个模块的文件拼成一张样式表，**不跟 `@import`**，所以 `skin.json` 逐文件列出。顺序只有一个来源：`packages/css/src/index.css` 与各层 `index.css` 的 `@import` 顺序——
 
@@ -54,7 +54,7 @@ node scripts/css-order.ts --write   # 同步进 skin/skin.json（五个模块的
 - 拆分成按组件的文件之前，MW 按 base → skin → components → arknights → utilities 加载，而预览按 base → components → arknights → skin → utilities，两边不一致；现在统一成一套（视觉上验过的顺序）。
 - `chrome/demo-theme.css`（示例活动主题）与 `charinfo.css`（干员舞台的换皮草案）不在 `index.css`、也不进 `skin.json`。
 
-## 体积 [​](#体积)
+## 体积 
 
 实测（2026-09，`packages/css/src` 当前内容；gzip 为 `-9`）：
 

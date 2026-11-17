@@ -6,7 +6,7 @@
 
 ---
 
-# 响应式 [​](#响应式)
+# 响应式 
 
 各块的断点规则集中在 `chrome/responsive.css`，放在骨架最后加载——同选择器同特指度的规则靠先后顺序生效（例如 `prefers-reduced-motion` 的 `animation: none` 必须排在对应的 `animation` 之后），所以暂不拆开。断点与 Codex 一致（640 / 1120 / 1680），另加 1400 作为目录导轨的断点。
 
@@ -32,7 +32,7 @@
 
 390：手机——页眉只有一行
 
-## 滚动锁 [​](#滚动锁)
+## 滚动锁 
 
 只有带遮罩或占满屏宽的层才锁页面滚动：侧栏抽屉，以及手机（≤639）上的目录浮层（参考 VitePress `useBodyScrollLock`），两者共用一把锁、按持有者计数（`window.akdsScrollLock(owner, on)`）。640–1400 的目录浮层、页眉 ⋮ 卡片、下拉菜单（`.ak-menu`），以及 ≥1120 的侧栏导轨和它的飞出层（`.ak-flyout`）都没有遮罩，不锁页面，也不写 `overscroll-behavior: contain`——滚轮在它们上面滚到头（或它们根本没有内滚）时照常带动页面；`contain` 在没有内滚时也会吞掉滚轮，指针停在上面页面就滚不动。
 
@@ -42,8 +42,8 @@
 - 有实体滚动条（Windows、「总是显示滚动条」）时同时写 `scrollbar-gutter: stable` 占住滚动条的位置，页面不会左右抖一下；不认 `scrollbar-gutter` 的老桌面浏览器退回拦 wheel / touchmove / 翻页键；
 - iOS 上 `overflow: hidden` 拦不住触摸滚动，另拦 touchmove；浮层 / 抽屉自己可滚的区域放行。
 
-## 打印 [​](#打印)
+## 打印 
 
 打印时去掉页眉（连同「菜单」「本页目录」）、头图、侧栏、目录（连同目录按钮）、页脚、动作簇、回到顶部，布局退回单列，正文白纸去框去内边距。正文里的那一半（编辑链接、分类栏、指示器不打印，链接恢复下划线）在 `base/print.css`，见[MediaWiki 内容样式 · 打印](/prts-design/content/#打印)。
 
-## CSS [​](#css)
+## CSS 

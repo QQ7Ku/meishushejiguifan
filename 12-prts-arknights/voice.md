@@ -8,7 +8,7 @@
 
 同现网的语音记录（`{{:干员/语音记录}}` 的 VoiceTable）：一条一行——播放钮 + 标题行（游戏内解锁条件 / 语音编号）+ 台词。当前语种只在上方的切换条里标，条目不再重复（「方言」这类也没有靠谱的缩写）。列表外框 + 悬停行底色。
 
-## 语种切换 [​](#语种切换)
+## 语种切换 
 
 `AkVoiceList` 给了 `languages`（`{ value, label, cv? }`，同 Naive 的 options）就在上方出一排语种（带 CV 名），`v-model` 是当前语种。`AkVoice` 的 `text` / `src` 写成按语种的对象（`{ cn, yue, jp, en, kr }`），跟着列表切换，缺某个语种时退回第一项。切语种只换台词和音频地址。
 
@@ -79,7 +79,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 文本与语种分开选 [​](#文本与语种分开选)
+## 文本与语种分开选 
 
 现网语音记录里「语言」和「语种」是两回事：**文本**是台词的语言（中文 / 日文 / 繁体中文 / 中文-方言 …），可以多选同时看、也可以一个都不选；**语种**是音频的差分（日语 / 中文-普通话 / 中文-方言 …），必须选一个，带 CV 名。`AkVoiceList` 再给 `texts`（`{ value, label }`）就多出「文本」那排多选芯片，`v-model:shown-texts` 是选中的几种（不绑时默认第一个）；`languages` 只管语种（音频）。两排在 `.ak-voice-toolbar` 里排成一行，放不下时语种整组换到第二行。这时 `AkVoice` 的 `text` 按文本键给对象，选中的几种一种一行（`.ak-voice__text` 是 `pre-line`）；`src` 仍按语种给对象。prts-widgets 的 VoiceTable 就是这么接的。
 
@@ -145,7 +145,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 单一语种 [​](#单一语种)
+## 单一语种 
 
 不给 `languages`：没有切换条，`text` / `src` 直接写串，`lang` 只用来标台词的 HTML lang。没有音频地址的条目播放钮压暗、禁用。
 
@@ -198,20 +198,20 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 下载 [​](#下载)
+## 下载 
 
 `download` 给了地址（同 `src`，一个串或按语种的对象）就在播放钮旁出一枚同款的下载钮（黑方块 + 线稿图标 `#i-download`），是原生 `<a download>`；`download-name` 是存下来的文件名。模板里写 `<a class="ak-voice__download" href="…" download="…" aria-label="下载 任命助理"><svg class="ak-icon"><use href="#i-download"/></svg></a>`，紧跟在播放钮后面。现网 `/语音记录` 页给的是 torappu 的 wav 地址（`?filename=` 由服务端写进 Content-Disposition），干员页里嵌入的那份不给。
 
-## 键盘与可访问性 [​](#键盘与可访问性)
+## 键盘与可访问性 
 
 - 播放钮是 `<button>`，读作「播放 + 标题」，`aria-pressed` 表示正在播放；下载是 `<a download>`，读作「下载 + 标题」。
 - 语种切换是一组 `aria-pressed` 的切换按钮（`role="group"`，以「语种」小标为组名）。
 - 台词带 HTML `lang`（cn → zh-Hans、yue → yue、jp → ja、en → en、kr → ko），读屏按语种发音。
 - 语种切换条与播放钮都带 `data-no-toggle`：皮肤脚本会在 document 上替模板输出的纯 CSS 芯片 / 播放钮翻 `is-active` / `is-playing`（给[CSS 实现](#css-实现)的演示用），Vue 版的状态归自己管，要退出那层委托，否则两边各翻一次。自己用 `.ak-voice` 结构 + 脚本管状态时也照此标。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkVoiceList [​](#akvoicelist)
+### AkVoiceList 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -230,7 +230,7 @@ html
 | `default` | 若干 AkVoice |
 | `header-extra` | 语种切换条末尾的附注（「灰标 = 游戏内解锁条件」） |
 
-### AkVoice [​](#akvoice)
+### AkVoice 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -242,7 +242,7 @@ html
 | `download` | `string | Record<string, string>` | — | 下载地址（现网是 torappu 的 wav）：一个串，或按语种的对象（同 src）；给了就在播放钮旁出一枚同款下载钮 |
 | `downloadName` | `string` | — | 下载存成的文件名（<a download> 的值，任命助理.wav）；不写由浏览器按地址定 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 切换条 `.ak-voice-langs`（原是干员页私有的 `.op-voice-langs`；几条并排时外面包 `.ak-voice-toolbar`）和禁用的播放钮 `.ak-voice__play:disabled` 随 Vue 版一起收进了 voice.css。皮肤脚本（document 级委托）会替模板输出的芯片翻 `is-active` / `aria-pressed`、替播放钮翻 `is-playing`（只是演示态，不会真的放音频）；状态自己管的容器标 `data-no-toggle`。
 

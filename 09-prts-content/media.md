@@ -6,15 +6,15 @@
 
 ---
 
-# 缩略图与图库 [​](#缩略图与图库)
+# 缩略图与图库 
 
 `base/media.css`：`[[文件:x.png|thumb]]` 和 `<gallery>` 的输出。图片本身是内容，框只做托底：浅底 + 1px 细框、直角，图注与图片之间一道更淡的细线。
 
-## 缩略图 [​](#缩略图)
+## 缩略图 
 
 MW 1.40+ 的媒体 DOM 是 `figure[typeof="mw:File/Thumb"] > a > img + figcaption`（旧版 `.thumb` / `.thumbinner` / `.thumbcaption` 同样适配）。`|right` / `|left` / `|center` 输出 `.mw-halign-*`，左右浮动时靠内侧留 20px；放大镜图标 `.magnify` 不显示。手机（≤639）上浮动取消、图片独占一行（规则在[皮肤骨架 · 响应式](/prts-design/chrome/responsive)）。
 
-## 图库 [​](#图库)
+## 图库 
 
 `<gallery>` 改成弹性布局：卡片间距 12px，不再用 MW 默认给每格写死的内联宽度（`!important` 压过去）；卡片 = 浅底细框 + 12px 灰色图注。`mode="packed"` 的格子按图片自身宽度排。
 
@@ -31,7 +31,7 @@ html
 <div style="clear:both"></div>
 ```
 
-## 图片 [​](#图片)
+## 图片 
 
 - `.mw-file-element { max-width: 100%; height: auto }`：正文里的大图不会撑破栏宽。只管 `[[文件:]]` 嵌入图（正文、`<gallery>` 都带这个类；文件描述页的大图由核心 `filepage` 模块的 `#file img` 管），Widget / 模板直接写的 `<img>` 不碰——早先这条是全局 `img`，出过两种问题：
 
@@ -47,4 +47,4 @@ html
 - `img.ak-pixel`：像素图（小尺寸游戏图标放大）用 `image-rendering: pixelated`，不糊。
 - 游戏的白色线稿图标（职业 / 精英 / 势力）加 `.ak-glyph`，亮色主题下自动反相，见[装饰语言](/prts-design/foundations/decoration#白色线稿图标-ak-glyph)。
 
-## CSS [​](#css)
+## CSS 

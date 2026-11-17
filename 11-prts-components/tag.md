@@ -6,7 +6,7 @@
 
 ---
 
-## 变体 [​](#变体)
+## 变体 
 
 状态色（info / success / warning / danger）走「淡底 + 色字」，两套主题各自成立；实底只有强调青、次强调黄、反转，以及两枚红——`new`（NEW 角标）和 `danger-solid`（BREAKING）。**红只表示危险与 NEW / BREAKING**。
 
@@ -41,7 +41,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 尺寸 · 标签字 · 圆点 · 可移除 [​](#尺寸-·-标签字-·-圆点-·-可移除)
+## 尺寸 · 标签字 · 圆点 · 可移除 
 
 `caps` 换成 Bender 大写加字距，给版本号 / 状态码这类拉丁短词；`removable` 出一个移除按钮，点击触发 `remove`，读屏名是「移除 + 标签文字」。一组标签放进 `.ak-tags`（换行 + 6px 间距）。
 
@@ -79,7 +79,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -97,7 +97,7 @@ html
 | --- | --- |
 | `default` |  |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 计数徽标、可交互的筛选芯片是另外两个组件：[徽标 Badge](/prts-design/components/badge)、[芯片 Chip](/prts-design/components/chip)。
 

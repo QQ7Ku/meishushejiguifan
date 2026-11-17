@@ -6,7 +6,7 @@
 
 ---
 
-# 色彩 [​](#色彩)
+# 色彩 
 
 令牌分三层：**原始色板** `--ak-{hue}-{step}`（每个颜色标明出处）→ **语义令牌** `--ak-{role}`（随主题变化，组件只用这一层）→ **Codex 桥接**（MediaWiki 核心 / 扩展 UI 自动跟随）。
 
@@ -20,7 +20,7 @@ Bridge     --background-color-base / --color-progressive …           Codex / M
 
 点色块复制 `var(--…)`。
 
-## 原始色板 [​](#原始色板)
+## 原始色板 
 
 组件不直接用原始色；需要时经由语义令牌引用。每个颜色都有出处，不用「看起来像」：
 
@@ -44,15 +44,15 @@ Bridge     --background-color-base / --color-progressive …           Codex / M
 | green-500 `#2FAC78` | `<ba.gild>` | 镀层 / 成功 |
 | purple-400 `#BF96ED` | 四星色 |  |
 
-### 中性色 [​](#中性色)
+### 中性色 
 
 取自游戏内 UI（标准按钮 `#313131`、亮色面板 `#F5F5F5`）与官网（`#1D1F20`、`#8D8D8D`、`#D2D2D2`）。
 
-### 品牌：青 / 蓝 [​](#品牌-青-蓝)
+### 品牌：青 / 蓝 
 
-### 黄 · 绿 · 橙 · 红 · 紫 [​](#黄-·-绿-·-橙-·-红-·-紫)
+### 黄 · 绿 · 橙 · 红 · 紫 
 
-### 稀有度（官方色阶） [​](#稀有度-官方色阶)
+### 稀有度（官方色阶） 
 
 来源 `gamedata/excel/sandbox_table.json → charRarityColorList`，不用「看起来像」的近似色。填充色 `--ak-rarity-N`；文字用 `--ak-rarity-N-text`——暗色下就是填充色，亮色下加深到白底可读（见下面[稀有度文字色](#稀有度文字色)）。
 
@@ -67,7 +67,7 @@ html
 </div>
 ```
 
-### 技能 SP 回复类型 [​](#技能-sp-回复类型)
+### 技能 SP 回复类型 
 
 自动回复 / 攻击回复 / 受击回复 / 被动四种回复方式各一个色（游戏内 SP 条的颜色）；颜色不是唯一的信息载体，芯片上总有文字。触发方式不用彩色，用黑白反转：手动触发黑底白字、自动触发灰底。组件见[技能 SP](/prts-design/arknights/sp)。
 
@@ -77,11 +77,11 @@ html
 <div class="ak-flex ak-gap-2 ak-wrap ak-items-center"><span class="ak-sp">自动回复</span><span class="ak-sp ak-sp--attack">攻击回复</span><span class="ak-sp ak-sp--hit">受击回复</span><span class="ak-sp ak-sp--passive-recovery">被动回复</span><span class="ak-sp ak-sp--passive">被动</span><span class="ak-sp-trigger">手动触发</span><span class="ak-sp-trigger ak-sp-trigger--auto">自动触发</span><span class="ak-sp-cost">25</span><span class="ak-sp-init">14</span></div>
 ```
 
-## 语义令牌 [​](#语义令牌)
+## 语义令牌 
 
 两套主题等价（终端 / 档案是双正典），同一个令牌在两列里各自的值。组件、模板、TemplateStyles 只用这一层。
 
-### 背景 / 表面 [​](#背景-表面)
+### 背景 / 表面 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -95,7 +95,7 @@ html
 | `--ak-bg-inverse` | `var(--ak-gray-900)` | `var(--ak-gray-0)` |  |
 | `--ak-bg-overlay` | `rgba(15, 15, 16, 0.6)` | `rgba(0, 0, 0, 0.7)` |  |
 
-### 文字 [​](#文字)
+### 文字 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -106,7 +106,7 @@ html
 | `--ak-fg-disabled` | `var(--ak-gray-300)` | `#4a4b4c` |  |
 | `--ak-fg-inverse` | `var(--ak-gray-0)` | `var(--ak-gray-950)` |  |
 
-### 强调色 [​](#强调色)
+### 强调色 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -118,7 +118,7 @@ html
 | `--ak-accent-2` | `var(--ak-yellow-500)` | `var(--ak-yellow-500)` | 次强调：黄 |
 | `--ak-accent-2-fg` | `#1d1f20` | `#000000` |  |
 
-### 链接 [​](#链接)
+### 链接 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -130,7 +130,7 @@ html
 
 已访问链接不换色相（不用紫），就是链接色「褪一层」：亮色 = 链接色 55% + `--ak-fg-muted` 45%，暗色 = 青 62% + 画布 38%；悬停回到完整的 `--ak-link-hover`。**写死算好的实色**：不用 `color-mix`（正文链接不该依赖较新的特性），也不能写半透明——浏览器为防历史嗅探会丢掉 `:visited` 颜色的 alpha。活动主题要改链接色，就连 `--ak-link-visited` 一起给。样张见[排版 · 链接与行内](/prts-design/content/typography#链接与行内)；对比度要求见[可访问性](/prts-design/foundations/accessibility#对比度)。
 
-### 边框 / 焦点 / 选区 [​](#边框-焦点-选区)
+### 边框 / 焦点 / 选区 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -142,7 +142,7 @@ html
 | `--ak-selection` | `rgba(0, 152, 220, 0.25)` | `rgba(24, 209, 255, 0.28)` |  |
 | `--ak-mark-bg` | `rgba(0, 152, 220, 0.14)` | `rgba(24, 209, 255, 0.20)` | <mark> 文字高亮：同 :target 引用 / 表格 is-hl / 面板当前项一套「淡青底」语言，比 --ak-accent-subtle 深一档、比 ::selection 浅一档（选中时仍看得出变化）； 不用黄——黄留给稀有度 / 警示条纹，且半透明黄叠在暗色面上会发闷成橄榄色；不用红——红链 / danger 已占满红的语义，红底高亮会像报错，红链落在里面也看不清 |
 
-### 状态 [​](#状态)
+### 状态 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -155,7 +155,7 @@ html
 | `--ak-danger` | `#c8102e` | `#ff5c5c` |  |
 | `--ak-danger-bg` | `rgba(200, 42, 54, 0.10)` | `rgba(216, 60, 60, 0.14)` |  |
 
-### 游戏内富文本 [​](#游戏内富文本)
+### 游戏内富文本 
 
 来源 `gamedata_const.richTextStyles`：技能 / 天赋 / 模组描述里的 `<@ba.vup>…</>` 等标签，Lua / 模板转成 `<span class="ak-rt-*">`（也认别名 `.ba-vup` 这类）。暗色取游戏原色，亮色逐个加深到 AA 对比度。渲染与术语提示见[富文本 Rich text](/prts-design/arknights/rich-text)。
 
@@ -190,7 +190,7 @@ html
 </table>
 ```
 
-### 稀有度文字色 [​](#稀有度文字色)
+### 稀有度文字色 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -201,7 +201,7 @@ html
 | `--ak-rarity-5-text` | `#a87a00` | `var(--ak-rarity-5)` |  |
 | `--ak-rarity-6-text` | `#d45f00` | `var(--ak-rarity-6)` |  |
 
-### 装饰 [​](#装饰)
+### 装饰 
 
 | 令牌 | 档案（亮） | 终端（暗） | 说明 |
 | --- | --- | --- | --- |
@@ -212,7 +212,7 @@ html
 | `--ak-halftone-color` | `rgba(0,0,0,.14)` | `rgba(255,255,255,.16)` |  |
 | `--ak-scrollbar` | `#c4c6c8` | `#3b3d40` |  |
 
-## 主题机制 [​](#主题机制)
+## 主题机制 
 
 两套主题等价，按 `<html>` 上的类切换——与 Vector 2022 / Minerva 的 `mw.user.clientPrefs` 同一机制（未登录也可用），核心与扩展对暗色的适配（Codex 令牌）因此可以复用：
 
@@ -224,7 +224,7 @@ html.skin-theme-clientpref-night   终端模式（暗）
 
 非 MW 环境（预览、Storybook、本站示例）用 `data-theme="light | dark"`。**局部主题**：亮 / 暗两块令牌同时挂在 `.ak-scope[data-theme="light | dark"]` 上（自定义属性在更近的祖先上声明就覆盖继承值），一个 widget 可以固定走终端 / 档案配色，与页面主题无关——Vue 里是 `<AkScope theme>`，见[作用域](/prts-design/components/scope)；主题无关块里引用了语义令牌的 `--ak-select-arrow` 在作用域上重新声明，高对比偏好也作用于作用域亮色。切换：`mw.user.clientPrefs.set('skin-theme', 'night')`；页眉里的外观开关就是做这件事（见[皮肤骨架 · 页眉](/prts-design/chrome/header#外观开关)）。
 
-## 页眉 / 头图 / 画布的主题接口 [​](#页眉-头图-画布的主题接口)
+## 页眉 / 头图 / 画布的主题接口 
 
 皮肤的「框」在两套主题下都是黑的；活动主题（Gadget / Common.css）只覆盖这一组变量，不碰选择器。怎么用、示例主题见[皮肤骨架 · 头图与主题接口](/prts-design/chrome/theming)。
 
@@ -263,7 +263,7 @@ html.skin-theme-clientpref-night   终端模式（暗）
 | `--ak-canvas-repeat` | `repeat` |  |
 | `--ak-canvas-attachment` | `scroll` |  |
 
-## Codex / MediaWiki 桥接 [​](#codex-mediawiki-桥接)
+## Codex / MediaWiki 桥接 
 
 MediaWiki 核心与扩展（Codex 组件、mw-message-box、OOUI 的一部分）读这些变量；映射到 PRTS Design 语义令牌后，皮肤之外的 UI 自动换肤。它们单独生成在 `bridge-codex.css`（`skins.akds.base` 模块），只属于 Arknights 皮肤：加载到别的皮肤（Vector 2022 …）上会把宿主自己的 Codex 配色整体改掉，所以不在 `tokens.css`、也不进 npm 包的默认入口 `standalone.css`。
 

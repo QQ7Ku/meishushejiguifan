@@ -6,7 +6,7 @@
 
 ---
 
-# 表单控件 [​](#表单控件)
+# 表单控件 
 
 `base/forms.css`：wiki 里的表单来自三处，皮肤对它们的态度不同——
 
@@ -18,7 +18,7 @@
 
 裸控件的正确写法就是**什么都别写**：`<input type="number">` 落进 wikitable 就该是对的。皮肤的规则全部包在 `:where()` 里（特指度 0），`.ak-input`、Codex / OOUI、模板自己的 class 都稳稳压在它上面，不必和 `input[type=…]` 较劲。
 
-## 裸控件 [​](#裸控件)
+## 裸控件 
 
 - **高度三档 30 / 36 / 44**，与 `.ak-btn` / `.ak-input` 同一刻度（`--sm` / 默认 / `--lg`）。裸控件默认 **36**：裸 `<input>`、`.ak-input`、`.ak-btn`、裸 `<button>` 都是 36，一行里混排齐平；落进表格单元格自动收到 30（见[落进表格](#落进表格)）。
 - **高度是确定的**：`box-sizing: border-box` + 上下 0 内边距 + `min-height` 定高，单行文字由浏览器在盒内垂直居中，所以正文（行高 1.7）和表格（1.5）里一样高。**不靠 padding 撑高度**——以前 content-box 下「`min-height` 34 + 上下 6px + 边框」= 48px，就是属性计算器那种比表头还高一截的输入框。
@@ -74,7 +74,7 @@ html
 <textarea class="ak-mt-3" placeholder="备注…" style="width:100%"></textarea>
 ```
 
-## 落进表格 [​](#落进表格)
+## 落进表格 
 
 wikitable 一行本身只有 ~35px，36 的控件会把行顶成 50：**单元格里的裸控件自动收到 30px 紧凑档**（裸 `<button>` 同样），字号跟表格——30 正好比表头行高一点，读得出「这一行是输入」又不抢戏；表格里想要 36 就显式用 `.ak-input`。文本类输入的**对齐跟随单元格**（`text-align: inherit`）——下面居中的计算器里，输入的数字和结果一样居中，`td.num` 右对齐列里的输入也右对齐；`select` 不跟。一格里「输入 + 按钮」照常并排。
 
@@ -98,7 +98,7 @@ html
 </div>
 ```
 
-### 给 Widget / 模板作者 [​](#给-widget-模板作者)
+### 给 Widget / 模板作者 
 
 - 直接写 `<input>`，不要写内联样式——高度 / 对齐 / 颜色 / 主题都会自己对；宽度要满就 `width:100%`。
 - 列头当标签：`<th><label for="elite">精英等级</label></th>` + `<td><input id="elite">`（`Widget:PropertyCalc` 已经这么写），点标签能聚焦、读屏器读得到；不方便放 label 的加 `aria-label`。
@@ -106,7 +106,7 @@ html
 - 一行里要拼「前缀 / 输入 / 按钮」用[输入组](/prts-design/components/input) `.ak-input-group`；带标签 + 帮助 + 错误文案的用[表单字段](/prts-design/components/field) `.ak-field`；步进用 `.ak-number`。
 - 手机（≤639）上 wikitable 横向滚动，按 `size` 定宽的控件不会缩；写了 `width:100%` 的随列宽缩（属性计算器原来写的 `calc(100% - .8em)` 就是这么活下来的，现在直接 `100%` 更好）。Widget 里针对旧皮肤的样式补丁（`.skin-minerva #calc input { border… }` 这类）可以删掉，只留 `width:100%` 这类布局意图。
 
-## 核心按钮与编辑器 [​](#核心按钮与编辑器)
+## 核心按钮与编辑器 
 
 `.mw-ui-button` / `.cdx-button` 拉回皮肤的按钮配色（核心的 `.cdx-button:enabled` 取 `--ak-bg-surface-2`，会和同色的面板撞成一片，历史页的「对比选择的版本」就是这么被吞掉的）；progressive = 主色实底，destructive = 危险色实底。OOUI 的窗口 / 面板 / 弹层、WikiEditor 工具栏、CodeMirror 只换色；编辑框 `#wpTextbox1` 用等宽字、满宽（只给编辑框，不给整个表单——摘要框和版权声明不该变等宽）。
 
@@ -121,4 +121,4 @@ html
 </div>
 ```
 
-## CSS [​](#css)
+## CSS 

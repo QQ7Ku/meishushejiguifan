@@ -6,7 +6,7 @@
 
 ---
 
-## 变体 [​](#变体)
+## 变体 
 
 `primary` 主色实底，一处只放一枚；`contrast` 是游戏内 `btn_on` 的黑白反转，给「开始行动」这类强动作；`danger` 叠斜纹表示不可逆；`link` 用于行内次要动作。
 
@@ -36,7 +36,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 尺寸 [​](#尺寸)
+## 尺寸 
 
 高 24 / 30 / 36 / 44 / 56。默认 36 与输入框、裸控件同一刻度，一行里混排齐平。
 
@@ -64,7 +64,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 图标 [​](#图标)
+## 图标 
 
 写法同 Naive UI 的 `n-button`：`icon` 放图标，`icon-placement="right"` 放到文字后面；不写文字就是方形图标按钮，这时 `label` 必填（同时作 `aria-label` 与 `title`）。
 
@@ -93,7 +93,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 状态 [​](#状态)
+## 状态 
 
 禁用、加载中（文字隐去、居中一枚圆弧转圈、`aria-busy`）、链接形态（有 `href` 时渲染成 `<a>`，禁用时用 `aria-disabled` 并去掉 `href`）。
 
@@ -120,7 +120,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 按钮组 [​](#按钮组)
+## 按钮组 
 
 一排贴在一起的按钮（同 Naive 的 `n-button-group`，纯容器）：相邻边框重叠，`size` 给组内按钮统一尺寸。多选一的分段控件用[单选按钮组](/prts-design/components/radio)（`AkRadioGroup` + `AkRadioButton`，同 Naive 的 `n-radio-button`），精英阶段切换用[阶段选择器](/prts-design/arknights/phase-tabs)，不用按钮组。
 
@@ -154,9 +154,9 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkButton [​](#akbutton)
+### AkButton 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -177,7 +177,7 @@ html
 | --- | --- |
 | `default` | 按钮文字；不写就是图标按钮 |
 
-### AkButtonGroup [​](#akbuttongroup)
+### AkButtonGroup 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -188,7 +188,7 @@ html
 | --- | --- |
 | `default` | 若干 AkButton |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 模板 / Lua 输出 `<button class="ak-btn ak-btn--primary">`（或 `<a class="ak-btn">`）即可；裸 `<button>`（Widget 直接吐出的、没有 class 的）由皮肤兜底成同样 36px 高的默认外观。
 

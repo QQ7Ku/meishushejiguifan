@@ -8,7 +8,7 @@
 
 单行 / 多行文字输入（同 Naive UI 的 `n-input`）。`v-model` 是文字；`type="textarea"` 换成多行（`<textarea class="ak-textarea">`，最小高 90px、只能竖向拉）。其余属性（`name`、`autocomplete`、`@focus` / `@blur` / `@keydown` …）都落到原生 `<input>` / `<textarea>` 上。数字用[数字输入](/prts-design/components/input-number)，搜索用[搜索框](/prts-design/components/search)。
 
-## 单行 · 多行 [​](#单行-·-多行)
+## 单行 · 多行 
 
 不在[表单字段](/prts-design/components/field)里、旁边也没有 `<label>` 时写 `label`（作 `aria-label`）；占位提示只做提示，不承载必填等信息。
 
@@ -38,7 +38,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 尺寸 [​](#尺寸)
+## 尺寸 
 
 高 30 / 36 / 44，与按钮同一刻度：`sm` 给表格里、工具栏，默认 36，`lg` 给独立的大输入。
 
@@ -64,7 +64,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 状态 [​](#状态)
+## 状态 
 
 禁用 = surface-3 底 + 禁用色；**只读 = 下沉底**，仍可选中复制——计算器里「只显示不编辑」的结果用 `readonly`，不要用 `disabled`。`status="error"` 红边（`aria-invalid`）、`success` 绿边；放在字段里时跟字段的 `validation-status`。输入框不做悬停态，焦点是青边 + 3px 淡青环（鼠标点进去也亮）。
 
@@ -91,7 +91,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 前后缀 · 输入组 [​](#前后缀-·-输入组)
+## 前后缀 · 输入组 
 
 `#prefix` / `#suffix` 是贴在输入框两边的灰底块（`.ak-input-group__addon`：路径前缀、单位）。要和按钮拼成一条，外面包 `AkInputGroup`（同 Naive 的 `n-input-group`）：相邻边重叠、中间不留圆角，`size` 同时给组内的输入框和按钮。
 
@@ -135,9 +135,9 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkInput [​](#akinput)
+### AkInput 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -161,7 +161,7 @@ html
 | `prefix` | 前缀（输入框左边的 .ak-input-group\_\_addon，如「wiki/」）；多行输入不适用 |
 | `suffix` | 后缀（输入框右边的 .ak-input-group\_\_addon，如单位「%」）；多行输入不适用 |
 
-### AkInputGroup [​](#akinputgroup)
+### AkInputGroup 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -171,7 +171,7 @@ html
 | --- | --- |
 | `default` | AkInput（可带 #prefix / #suffix）与 AkButton |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 `<input class="ak-input">` / `<textarea class="ak-textarea">`；尺寸 `.ak-input--sm` / `--lg`；状态 `[readonly]` `:disabled` `.is-invalid` / `[aria-invalid="true"]` / `:user-invalid` `.is-valid`。输入组 `.ak-input-group > .ak-input-group__addon + .ak-input + .ak-btn`。
 

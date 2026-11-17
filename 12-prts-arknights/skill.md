@@ -10,7 +10,7 @@
 
 右栏撑满图标高度、两端对齐：名称行贴图标顶边，数值芯片行贴图标底边。
 
-## 技能卡 [​](#技能卡)
+## 技能卡 
 
 `sp-type` 决定图标描边 / 底条色与 SP 标签（`auto` 绿 · `attack` 橙 · `hit` 黄 · `passive` 灰）；`trigger` 是手动 / 自动触发，被动技能不写。`cost` / `init` 画成芯片，`duration` 写成「持续 25s」（数字按秒），哪个不写哪个不显示。描述写在默认插槽里——游戏原始标记套一层 [AkRichText](/prts-design/arknights/rich-text)。`selected` 是游戏内的选中态（蓝框 + 左上角标）。
 
@@ -52,7 +52,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 未解锁 [​](#未解锁)
+## 未解锁 
 
 `locked`：图标灰化 + 锁。名称行末尾的附加内容（「未解锁」标签）用 `#header-extra` 插槽。
 
@@ -81,7 +81,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 右侧槽 [​](#右侧槽)
+## 右侧槽 
 
 写了 `unlock`（开放条件，可带 `unlock-icon` 精英化图标）或 `#aside` 插槽（技能[范围](/prts-design/arknights/range)）就是三栏的宽卡 `.ak-skill--wide`；窄屏时右侧槽换到第二行。全等级表 / 参数矩阵的表头就是一张不写数值的宽卡。
 
@@ -121,7 +121,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 别名 [​](#别名)
+## 别名 
 
 `alias` 在技能名后接一段灰色小字：`en` 英文名（Bender 大写，`.ak-en`）、`ja` 日文名，与技能名基线对齐——干员页全等级表的表头卡就是这样写的。要放别的内容（多一种语言、带链接）时用 `#alias` 插槽，内容进 `.ak-skill__alias`。
 
@@ -163,7 +163,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -188,7 +188,7 @@ html
 | `header-extra` | 名称行末尾的附加内容（「未解锁」标签等） |
 | `aside` | 右侧槽（开放条件之后）：技能范围等；写了就是三栏的宽卡（.ak-skill--wide） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 结构：`.ak-skill > .ak-skill__icon + div( .ak-skill__head( __name [+ __alias] + .ak-sp + .ak-sp-trigger ) + .ak-skill__stats ) [+ .ak-skill__aside] + .ak-skill__desc`；别名是 `span.ak-skill__alias > span.ak-en + span`（英文名 + 日文名）。技能名是标题元素（`heading-level`，默认 `h4`；干员页正文里是 `h3`），MW 章节标题的装饰由 `title-reset.css` 去掉。
 

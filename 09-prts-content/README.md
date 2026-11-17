@@ -15,7 +15,6 @@ MediaWiki 正文样式：排版、表格、缩略图、目录折叠、消息框�
 | [TabberNeue](./tabber.md) | [链接](https://mooncellwiki.github.io/prts-design/content/tabber) |
 | [表格](./tables.md) | [链接](https://mooncellwiki.github.io/prts-design/content/tables) |
 | [目录 · 折叠 · 引用](./toc.md) | [链接](https://mooncellwiki.github.io/prts-design/content/toc) |
-| [排版 · 列表](./typography#列表.md) | [链接](https://mooncellwiki.github.io/prts-design/content/typography#列表) |
 | [排版](./typography.md) | [链接](https://mooncellwiki.github.io/prts-design/content/typography) |
 
 [← 返回总目录](../README.md)

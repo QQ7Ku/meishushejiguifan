@@ -20,7 +20,7 @@ vue
 
 Arknights 皮肤上 body 本身就是作用域，包不包都一样；所以写 widget 时一律在根节点包一层，不用判断皮肤。
 
-## 局部主题 [​](#局部主题)
+## 局部主题 
 
 `theme="dark"` / `theme="light"` 让这一块固定走终端（暗）/ 档案（亮）配色，与页面主题无关——令牌块（`tokens.css`）同时挂在 `.ak-scope[data-theme]` 上，自定义属性在更近的祖先上声明就覆盖继承值；带主题的作用域连画布底色（`--ak-bg-canvas`）一起换，否则暗色的浅字会落在宿主的白底上。不传 `theme` 就跟随页面（`<html>` 上的 clientpref 类 / `data-theme`，都没有时跟随系统）。
 
@@ -66,7 +66,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 作用域里还有什么 [​](#作用域里还有什么)
+## 作用域里还有什么 
 
 排版基线之外，作用域在**别的宿主上**（不在 `body.skin-arknights` 里时，选择器都带 `:not(.skin-arknights *)`）还要把宿主的页面环境换成 Arknights 皮肤上组件看到的那一个——Arknights 皮肤上这些本来就由 `base/` 全页提供，所以不生效：
 
@@ -78,7 +78,7 @@ html
 
 组件里夹的正文内容（不带 `ak-` 类、不在 not-prose 里的段落 / 列表 / 链接）不动，跟着宿主的正文排版走——MW 正文排版（`base/`）不随组件走。三种宿主一致由 `pnpm e2e --project=hosts`（`e2e/hosts.spec.ts`）逐元素核对（对照页 `preview/gallery.html?host=akds|vector|bare`），静态与 `:hover` / `:focus-visible` / `:visited` 各比一轮。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -89,7 +89,7 @@ html
 | --- | --- |
 | `default` | 作用域里的内容：widget 的整棵组件树 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 在 widget / 模板输出的最外层加 `class="ak-scope"`；局部主题再加 `data-theme="dark|light"`。
 

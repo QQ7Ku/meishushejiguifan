@@ -6,7 +6,7 @@
 
 ---
 
-# 装饰语言 [​](#装饰语言)
+# 装饰语言 
 
 方舟界面的「签名」不是某个组件，而是一组可叠加的几何装饰：左侧色条 / 短横条 / 斜纹 / 半调网点 / 角标三角 / 黑白反转 / 大写拉丁字 / 白色线稿图标。全部是纯 CSS 类（`packages/css/src/decor/`，一类一个文件），可以叠在任何盒子上。**没有切角、斜切、斜带**——层级与状态靠色条、黑白反转、角标三角表达。菱形是有意的——源石母题（列表符号、加载涟漪、时间线节点、敌人威胁度），它是一枚独立的小图形，不是盒子的斜边，见[设计理念 · 菱形](/prts-design/foundations/principles#菱形-源石)。
 
@@ -22,7 +22,7 @@
 | `.ak-inverse` | 黑白反转块 | 游戏 `btn_on` / `btn_off` |
 | `.ak-chevrons` | 链接尾部 `»` | 游戏 `transferarrow` |
 
-## 色条 + 细框 [​](#色条-细框)
+## 色条 + 细框 
 
 标题、消息、`pre`、面板头、模组卡、弹层顶条……系统里最常见的强调是「一侧粗色条 + 1px 细框」。直接写 `border-left: 4px` + `border: 1px` 会让浏览器在角上把两种宽度的边**斜接**（miter）出一道小斜边——那也是斜边，系统里不出现。做法：色条和细框都交给 `border-image`，slice 与各边 `border-width` 一致，直角拼接。
 
@@ -44,7 +44,7 @@ html
 <pre class="ak-mb-0" style="padding:8px 12px">pre / 消息 / 面板头 / 模组卡 同一做法</pre>
 ```
 
-## 斜纹 `.ak-stripes` [​](#斜纹-ak-stripes)
+## 斜纹 `.ak-stripes` 
 
 危险 / 施工 / 禁用 / 分隔。出处：游戏 `btn_done`、`image_btn_ap_confirm`。
 
@@ -58,7 +58,7 @@ html
 </div>
 ```
 
-## 半调网点 `.ak-halftone` [​](#半调网点-ak-halftone)
+## 半调网点 `.ak-halftone` 
 
 游戏内蓝色标题条的网点渐隐。
 
@@ -71,7 +71,7 @@ html
 </div>
 ```
 
-## 角标三角 `.ak-corner` [​](#角标三角-ak-corner)
+## 角标三角 `.ak-corner` 
 
 官网右上角三角 / 游戏内选中角标。
 
@@ -84,7 +84,7 @@ html
 </div>
 ```
 
-## 白色线稿图标 `.ak-glyph` [​](#白色线稿图标-ak-glyph)
+## 白色线稿图标 `.ak-glyph` 
 
 游戏图标是白色线稿；亮色主题下 `filter: var(--ak-glyph-filter)` 自动反相（切一下外观看看）。
 
@@ -94,7 +94,7 @@ html
 <div class="ak-flex ak-gap-3 ak-items-center"><img class="ak-glyph" src="assets/profession/warrior.png" width="40" alt=""><img class="ak-glyph" src="assets/elite/elite_2_large.png" width="44" alt=""><span class="ak-glyph-box" style="width:44px;height:44px"><img class="ak-glyph" src="assets/profession/caster.png" width="34" alt=""></span><img class="ak-glyph" src="assets/camp/lgd.png" width="44" alt=""></div>
 ```
 
-## 黑白反转 `.ak-inverse` [​](#黑白反转-ak-inverse)
+## 黑白反转 `.ak-inverse` 
 
 游戏内 `btn_on` / `btn_off`：主动作靠明度反转而非彩色。
 
@@ -104,7 +104,7 @@ html
 <div class="ak-flex ak-gap-2"><span class="ak-inverse" style="padding:8px 16px;font-weight:700">开始行动</span><span class="ak-bg-surface-2" style="padding:8px 16px;border:1px solid var(--ak-border-strong)">取消</span></div>
 ```
 
-## 网格 / 点阵 / 边角括号 / 水印 [​](#网格-点阵-边角括号-水印)
+## 网格 / 点阵 / 边角括号 / 水印 
 
 html
 
@@ -117,7 +117,7 @@ html
 </div>
 ```
 
-## 双箭头 · 编号 · 横幅 [​](#双箭头-·-编号-·-横幅)
+## 双箭头 · 编号 · 横幅 
 
 html
 

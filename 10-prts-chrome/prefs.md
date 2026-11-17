@@ -6,7 +6,7 @@
 
 ---
 
-# 阅读设置 [​](#阅读设置)
+# 阅读设置 
 
 prts 并成 Arknights 单皮肤、`m.` 域名回主域之后，手机版（Minerva + MobileFrontend）的两样读者偏好没了：**章节折叠**（`Special:MobileOptions` 的「展开章节」）和**字号**（「文本」三档）。皮肤把它们连同**外观三态**（原来页眉上常驻的三格开关）一起做成页眉上的一张面板，同 Vector 2022 的「外观」菜单；另有一页 `Special:ReadingPreferences` 兜底（无 JS、可直链）。
 
@@ -28,7 +28,7 @@ prts 并成 Arknights 单皮肤、`m.` 域名回主域之后，手机版（Miner
 
 ≤639：页面正中的弹层，仍是页眉配色
 
-## 表单 [​](#表单)
+## 表单 
 
 html
 
@@ -78,7 +78,7 @@ html
 
 示例里没挂 `data-pref`，点了只换选中态、不改文档站自己的设置；「保存」钮在真页面上有 JS 时是藏起的。
 
-## 偏好的载体 [​](#偏好的载体)
+## 偏好的载体 
 
 与 MW 核心的 clientPrefs 同一种类名：`<html class="skin-theme-clientpref-os ak-sections-on-clientpref-auto ak-sections-clientpref-expand ak-font-size-clientpref-regular ak-table-font-size-clientpref-auto">`，CSS 只认这个类（`base/sections.css` · `base/typography.css`）。值存在哪、首帧前谁把它打到 `<html>` 上由宿主决定：`client-prefs.js` 在 `<html>` 上已有这一项的类、又有 `mw.user.clientPrefs` 时交给它，否则（预览 / 站外）自己改类 + localStorage（`mwclientpreferences`，"feature-clientpref-value,…" 一条，与 Skin:Arknights 的 `inline.js` 同一格式）。
 
@@ -86,7 +86,7 @@ MW 1.43 核心那套只管**匿名用户**：`mw.user.clientPrefs.set()` 写 coo
 
 主题的默认值是 `os`；站点默认不是跟随系统时，宿主在 `<html data-akds-theme-default="day | night">` 上给（同侧栏的 `data-akds-flyout`），「恢复默认设置」按它。章节折叠的默认值是 `auto`（窄屏开、宽屏关），表单里没有对应的格：服务端不预勾，`client-prefs.js` 按当前视口亮 `on` / `off`，`auto` 时视口跨过 639 也跟着换格；老值 `mobile` / `all` 读成 `auto` / `on`。改动后在 `document` 上派发 `akds:pref`，`sections.js` 听它、立刻套用到当前页。
 
-## 为什么存本机、不跟账号 [​](#为什么存本机、不跟账号)
+## 为什么存本机、不跟账号 
 
 阅读设置全部存本机，登录了也不跟账号走、不跨设备同步。这里的几项都是**跟着这块屏幕**的：字号在 6 寸手机和 27 寸显示器上要的不是同一档，表格字号更是只在手机上才想缩；章节折叠在窄屏是导航、在宽屏是多余；「跟随系统」本身就只对当前设备有意义。同步过去只会让人在电脑上调大了字号、手机上突然撑爆表格。知名产品的做法也是这样：
 
@@ -101,7 +101,7 @@ MW 1.43 核心那套只管**匿名用户**：`mw.user.clientPrefs.set()` 写 coo
 
 所以有 JS 时所有访客都写本机 `localStorage`；无 JS 时登录用户存 **cookie**（仍是本机；登录用户的页面本来不进 CDN 缓存，服务端读它没有代价），不写用户选项——写了就成了唯一一条会跨设备的路，电脑上无 JS 存的字号会出现在手机上。匿名无 JS 无处可存，只给说明。
 
-## Skin:Arknights 的做法 [​](#skin-arknights-的做法)
+## Skin:Arknights 的做法 
 
 | 项 | 做法 |
 | --- | --- |
@@ -112,7 +112,7 @@ MW 1.43 核心那套只管**匿名用户**：`mw.user.clientPrefs.set()` 写 coo
 | 不迁移 `mf-font-size` | 老手机版的字号不搬过来：它的 small 是 MF 的「标准」档（默认），三档都只改 `<p>` 的字号、只在手机版生效；`ak-font-size` 换的是整块正文的字号令牌、桌面也生效，几档对不上，迁过来会让在手机上调过字号的人桌面突然变样 |
 | 脚本 | `scripts/sync-design-system.sh` 的 `FILES` 加 `client-prefs.js sections.js`，`skin.js` 里 require；`wikipage.content` 钩子后 `akdsSections.init`；`window.akdsScrollLock` 指向皮肤的滚动锁（手机上的模态面板用） |
 
-## CSS [​](#css)
+## CSS 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

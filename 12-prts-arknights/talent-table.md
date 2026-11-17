@@ -8,7 +8,7 @@
 
 **干员页正文的天赋用这个**：同现网 prts.wiki，一张表列完各精英阶段 / 模组等级下的效果，一个天赋一张表（「第一天赋」「第二天赋」）。列表 / 侧栏里的摘要用[天赋卡](/prts-design/arknights/talent)。
 
-## 条件表 [​](#条件表)
+## 条件表 
 
 `rows` 每项是一个条件下的效果：`name` 天赋名（相邻几行同名合并成一格）、`condition` 条件、`description` 描述（游戏原始标记，由 [AkRichText](/prts-design/arknights/rich-text) 渲染）。条件格要放[精英化](/prts-design/arknights/elite)图标时用 `#condition` 插槽（`{ row, index }`）。
 
@@ -45,7 +45,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 潜能 · 算法开关 [​](#潜能-·-算法开关)
+## 潜能 · 算法开关 
 
 表头右侧两枚开关，都是组件自己的状态，也可以用 `v-model` 暴露出来：
 
@@ -122,13 +122,13 @@ html
 
 预览页 / 皮肤里的纯 CSS 版靠 `input[data-toggle-class]` 约定：勾选时皮肤脚本（`skin.js` / `preview.js`，document 级委托）给最近的 `data-toggle-target`（默认 `table`）加 / 去类（`.is-pot` / `.is-calc`）；生产环境这几行也可以归 Gadget。Vue 版自带状态。
 
-## 可访问性 [​](#可访问性)
+## 可访问性 
 
 开关是带 `<label>` 的原生复选框（读作「潜能5加成」「算法」）。两版描述都在 DOM 里、由 CSS 切换显示，隐藏的那版 `display: none`，读屏也跳过。`AkCalc` 是 `role="img"`，读作「直接乘算」等（悬停同）。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkTalentTable [​](#aktalenttable)
+### AkTalentTable 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -152,13 +152,13 @@ html
 | `description` | 自己画描述（要标 AkCalc 时用）：potential = 这是潜能版还是基础版（有潜能版的行调两次） |
 | `legend` | 图例行末尾的附加内容（「详见 属性基本公式」链接） |
 
-### AkCalc [​](#akcalc)
+### AkCalc 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
 | `kind`必填 | `"add"``"mul"``"fadd"``"fmul"` | — | 进公式的方式：add 直接加算（绿 +）· mul 直接乘算（蓝 +）· fadd 最终加算（橙 +）· fmul 最终乘算（橙 ×） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 结构：`table.ak-talent-table > thead( th.name th.cond th.desc > label.ak-check.ak-talent-table__toggle ) + tbody > tr( td.name[rowspan] td.cond td.desc( .ak-talent-table__base + .ak-talent-table__pot ) ) + tfoot > tr.ak-talent-table__legend`；表上 `.is-pot` / `.is-calc` 切换。窄屏时开关不再浮在右侧、换到「描述」下面。表格数字走正文字体（见[表格里的数字](/prts-design/arknights/skill-sheet#表格里的数字)）。
 

@@ -6,7 +6,7 @@
 
 ---
 
-# 搜索面板 [​](#搜索面板)
+# 搜索面板 
 
 参考 Citizen 的 Command Palette（starcitizen.tools）：搜索不是页眉里的一条输入框，而是一块**居中悬浮的「终端窗口」**——直角、顶部 3px 青条、56px 输入行、`--ak-bg-overlay` 遮罩 + 2px 模糊。不做 Vector 式的页眉内下拉建议：页眉是玻璃底，下拉在毛玻璃上叠层次会脏；居中面板用一层遮罩把注意力收拢，也天然适配手机（8px 边距的全宽卡片）。
 
@@ -20,7 +20,7 @@
 
 输入 yh：本地即时索引按拼音首字母整词命中「银灰」（精确命中 → 预先高亮），结果带头像 / 职业 / 稀有度；末尾固定一行「全文搜索」
 
-## 渐进增强 [​](#渐进增强)
+## 渐进增强 
 
 mustache 先渲染真表单 `form.ak-header__search#searchform > #searchInput`，无 JS 时直接提交到 `Special:Search`。脚本到位后：
 
@@ -28,7 +28,7 @@ mustache 先渲染真表单 `form.ak-header__search#searchform > #searchInput`�
 2. 把**同一个** `<form>` 搬进面板顶部——`id` / `action` / hidden `title` / `#searchInput` 全保留，依赖 `#searchform #searchInput` 的 Gadget 不受影响，没有高亮项时回车仍是原生提交（= MW 的 Go：精确标题直达，否则全文结果页）；
 3. 接管 `/`、Ctrl / ⌘ K、accesskey F。
 
-## 交互 [​](#交互)
+## 交互 
 
 | 键 | 行为 |
 | --- | --- |
@@ -51,7 +51,7 @@ mustache 先渲染真表单 `form.ak-header__search#searchform > #searchInput`�
 
 触屏不显示键位提示；≤639 面板贴边 8px、结果行省掉类型标签与英文副标；右上角的「取消」只在手机（≤639）和触屏上出现。
 
-### 可访问性 [​](#可访问性)
+### 可访问性 
 
 - 面板 `role="dialog"` + `aria-modal`；输入框 `role="combobox"`，焦点始终留在输入框里，高亮项经 `aria-activedescendant` 播报；结果条数由 `aria-live` 区域念出。在面板里点结果行或非控件的地方（分组标题、快捷入口旁的空白、页脚）不夺焦；焦点万一落到面板外，按键仍归面板并把焦点拉回输入框。
 - `Tab` 在面板内循环；关闭后焦点回到触发器。
@@ -59,7 +59,7 @@ mustache 先渲染真表单 `form.ak-header__search#searchform > #searchInput`�
 
 状态类：`.has-query`（有字）· `.has-mode`（在模式里）· `.is-loading`（结果在路上）· `.is-closing`（关闭动画）。
 
-## 在 MediaWiki 里 [​](#在-mediawiki-里)
+## 在 MediaWiki 里 
 
 MW 侧的数据源是 `skin/resources/search-providers.js`（与核心同在 `skins.akds.js` 模块里），预览用 `preview/search-mock.js`。数据源 `search(q, signal)` 返回分组 `{ id, label, en, items }[]`：
 
@@ -84,7 +84,7 @@ MW 侧的数据源是 `skin/resources/search-providers.js`（与核心同在 `sk
 
 390：手机上页眉的搜索收成图标，面板是全宽卡片
 
-## 结构 [​](#结构)
+## 结构 
 
 由 JS 生成，类名即契约：
 
@@ -97,7 +97,7 @@ MW 侧的数据源是 `skin/resources/search-providers.js`（与核心同在 `sk
   __foot    __foot-left  __hints > span > kbd.ak-kbd
 ```
 
-## CSS [​](#css)
+## CSS 
 
 | 块 | 元素 \_\_ | 修饰 -- |
 | --- | --- | --- |

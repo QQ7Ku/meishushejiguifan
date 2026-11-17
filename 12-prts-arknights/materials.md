@@ -10,7 +10,7 @@
 
 写法同 Naive UI 的 `n-descriptions`：`AkMaterials` 里放若干 `AkMaterialsRow`（`label` 是左列文字，默认插槽放 `AkItem`）；里面的 `AkItem` 没写 `size` 时自动画成 `sm`（40px，材料表的规格；同 `AkItemList` 的 `size`，由行向下提供），写了就以写的为准。
 
-## 精英化材料 [​](#精英化材料)
+## 精英化材料 
 
 左列要放精英化图标时用 `#label` 插槽。图标是游戏白线稿，亮色主题下自动反相。
 
@@ -54,7 +54,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 技能升级材料 · 分段说明 [​](#技能升级材料-·-分段说明)
+## 技能升级材料 · 分段说明 
 
 `AkMaterialsDivider` 是横跨两列的一条虚线 + 小字（「达到精英阶段 1 后解锁」），放在它说明的那几行之前。数据驱动时 `v-for` 出行即可。
 
@@ -98,7 +98,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 专精训练 [​](#专精训练)
+## 专精训练 
 
 左列可以放别的组件——这里是换了专精小图标的[精英化](/prts-design/arknights/elite)标记。
 
@@ -137,9 +137,9 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkMaterials [​](#akmaterials)
+### AkMaterials 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -148,7 +148,7 @@ html
 | --- | --- |
 | `default` | 若干 AkMaterialsRow / AkMaterialsDivider |
 
-### AkMaterialsRow [​](#akmaterialsrow)
+### AkMaterialsRow 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -159,7 +159,7 @@ html
 | `default` | 这一步要的材料：若干 AkItem——没写 size 的按表里的规格画成 sm（40px） |
 | `label` | 左列内容（代替 label） |
 
-### AkMaterialsDivider [​](#akmaterialsdivider)
+### AkMaterialsDivider 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -168,7 +168,7 @@ html
 | --- | --- |
 | `default` | 说明文字 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 结构：`.ak-materials` 两列网格，每行是相邻的两个子元素 `span.ak-materials__label` + `span.ak-item-list`（`AkMaterialsRow` 因此是两个根元素的组件）；`.ak-materials__divider` 占满一整行。左列里的 `img` 16px 高、跟主题反相。
 

@@ -6,11 +6,11 @@
 
 ---
 
-# 分类栏与杂项 [​](#分类栏与杂项)
+# 分类栏与杂项 
 
 `base/catlinks.css`：页面底部的分类栏 `#catlinks`，外加一批 MW / 维基模板常用的小工具类（指示器、`hlist`、`plainlist`、`navbox`、`infobox`、浮动与清除）。
 
-## 分类栏 [​](#分类栏)
+## 分类栏 
 
 MW 原生 `#catlinks` 结构不动：`div.catlinks > div.mw-normal-catlinks( a「分类」 + "：" + ul > li > a )`，可选第二行 `div.mw-hidden-catlinks`（隐藏分类，只有开了偏好的编辑者或分类页上可见）。不做芯片盒：一行 = 标签图标 + overline 小标签 + 普通链接（参考 fz.wiki）。
 
@@ -26,7 +26,7 @@ html
 
 分类栏在皮肤里放在正文白纸之外、紧贴其下（见[皮肤骨架](/prts-design/chrome/)）；正文用平铺版式 `.ak-body--flat` 时，它上面补一道分隔线。
 
-## 工具类 [​](#工具类)
+## 工具类 
 
 | 类 / 元素 | 作用 |
 | --- | --- |
@@ -50,4 +50,4 @@ html
 </table>
 ```
 
-## CSS [​](#css)
+## CSS 

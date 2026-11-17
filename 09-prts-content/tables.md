@@ -6,11 +6,11 @@
 
 ---
 
-# 表格 [​](#表格)
+# 表格 
 
 `base/tables.css`：`{| class="wikitable"` 是 PRTS 用得最多的结构——干员一览、属性、材料、掉落，几乎每页都有。表格是数据，不是装饰：浅底表头、1px 细线，数字列右对齐。
 
-## wikitable [​](#wikitable)
+## wikitable 
 
 表头 `th` 浅一档的底、加粗居中；单元格 1px `--ak-border` 细线。行悬停默认没有，一行一条记录的数据表加 `ak-hover` 才有（见下「修饰类」）。可排序表（`sortable` → jquery.tablesorter）的表头右侧是 `⇅`，当前排序列换成青色 `↑` / `↓`。
 
@@ -28,7 +28,7 @@ html
 
 单元格里的干员行、稀有度、职业是方舟组件（[干员行](/prts-design/arknights/op-row)、[稀有度](/prts-design/arknights/rarity)、[职业](/prts-design/arknights/profession)），表格本身只管线与底。
 
-## th 当行头 [​](#th-当行头)
+## th 当行头 
 
 PRTS 大量表格把 `th` 竖着当行头用（属性表 / 信息表）。加粗的 2px 底线只压在「整行都是 `th`、且下一行是数据行」的真正表头行下面（多行表头只压最后一行）；行头列每格只有普通 1px 线，与右侧 `td` 对齐，不会一格一道。靠 `:has()` 判断，不支持的浏览器退化为一律 1px，只靠底色区分。
 
@@ -52,11 +52,11 @@ html
 </div>
 ```
 
-## 数字列 [​](#数字列)
+## 数字列 
 
 `td.num`（或格子里的 `.num`）右对齐 + `tabular-nums`。**表格数字一律用正文字体**：思源的数字默认等宽，列天然对齐；Bender 的数字是比例宽度、子集不带 `tnum`，小字号又细，对不齐。HUD 数字类（`.ak-num` 等）掉进表格也会被 `arknights/table-numerals.css` 兜回正文字体（见[字体排印 · Bender 的使用边界](/prts-design/foundations/typography#bender-的使用边界)）。
 
-## 修饰类 [​](#修饰类)
+## 修饰类 
 
 写在 `class="wikitable …"` 里，可以叠加：
 
@@ -83,10 +83,10 @@ html
 
 宽表外面包一层 `<div class="ak-table-scroll">` 横向滚动；手机（≤639）上所有 `wikitable` 都会自动变成可横滚的块（规则在[皮肤骨架 · 响应式](/prts-design/chrome/responsive)）。收起的折叠表（`mw-collapsed`）此时只剩一行标题，标题行撑满表格宽度，不随标题文字长短变。
 
-## 其它表格 [​](#其它表格)
+## 其它表格 
 
 Cargo 查询结果 `.cargoTable`、核心特殊页面的 `table.mw-datatable` 用同一套线与表头底。`.wikitable` 自己也写了 `border-collapse`：`Special:Version` 这类核心 PHP 生成的 wikitable 不在 `.mw-parser-output` 里，不写的话会退回 `separate`，每格变成一个个带 2px 缝的小框。
 
 落进表格的裸 `<input>` / `<select>`（属性计算器、筛选栏）自动收到 30px 紧凑档，见[表单控件](/prts-design/content/forms#落进表格)。
 
-## CSS [​](#css)
+## CSS 

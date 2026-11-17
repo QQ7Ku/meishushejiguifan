@@ -8,7 +8,7 @@
 
 原生 `<details>` 折叠块：标题行左侧主色 `+` / `−`，展开后标题行加底色和分隔线。常见问题、档案、默认收起的长表格。正文里编辑手写的 `mw-collapsible` 是另一回事，这里是模板 / 小部件用的。
 
-## 基本 [​](#基本)
+## 基本 
 
 Vue 版照 Naive UI 叫 `AkCollapse` + `AkCollapseItem`（同 `n-collapse`）：`v-model` 是展开项 `name` 的数组；标题用 `title` 或 `#header` 插槽，展开内容写在默认插槽里（正文排版照常生效）。
 
@@ -45,7 +45,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 手风琴 [​](#手风琴)
+## 手风琴 
 
 `accordion`：同一时间只展开一项，展开一项时收起其他。
 
@@ -86,7 +86,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 键盘与可访问性 [​](#键盘与可访问性)
+## 键盘与可访问性 
 
 每项就是原生 `<details>` + `<summary>`：按钮语义、展开状态、Enter / 空格开合都是浏览器给的，不另加 `aria-expanded`；页内查找（Ctrl+F）命中收起的内容时浏览器会自动展开，`v-model` 跟着同步。`<summary>` 带 `aria-controls` 指向内容区。另外补了 [WAI-ARIA Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) 的可选键盘支持：
 
@@ -96,9 +96,9 @@ html
 | `↓` / `↑` | 移到下一项 / 上一项的标题（首尾循环） |
 | `Home` / `End` | 第一项 / 最后一项的标题 |
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkCollapse [​](#akcollapse)
+### AkCollapse 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -113,7 +113,7 @@ html
 | --- | --- |
 | `default` | 若干 AkCollapseItem |
 
-### AkCollapseItem [​](#akcollapseitem)
+### AkCollapseItem 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -125,7 +125,7 @@ html
 | `header` | 标题（代替 title） |
 | `default` | 展开后的内容（正文排版照常生效） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 模板直接输出 `<details>`，不需要脚本；要默认展开写 `open`。
 

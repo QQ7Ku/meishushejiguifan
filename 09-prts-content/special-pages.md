@@ -6,7 +6,7 @@
 
 ---
 
-# 特殊页面 [​](#特殊页面)
+# 特殊页面 
 
 `base/special-pages.css`：不是 wikitext、而是 MW 核心 / 扩展直接渲染的界面——差异、历史、最近更改、搜索结果、通知气泡、Echo、编辑标签。布局都由核心自己的样式模块负责（`mediawiki.diff`、`mediawiki.special.changeslist` …），皮肤只把颜色、字号、强调换成 PRTS Design 的：
 
@@ -60,4 +60,4 @@ html
 
 皮肤骨架里还有一条相关的：特殊页面的正文白纸内边距收窄（`chrome/special-pages.css`），见[皮肤骨架](/prts-design/chrome/)。
 
-## CSS [​](#css)
+## CSS 

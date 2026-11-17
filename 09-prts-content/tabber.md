@@ -6,7 +6,7 @@
 
 ---
 
-# TabberNeue [​](#tabberneue)
+# TabberNeue 
 
 `base/tabber.css`：编辑在正文里写的 `<tabber>`（TabberNeue 扩展）。扩展自带的滑动指示条、渐变阴影全部关掉，换成设计系统标签页的样子——细底线 + 3px 青色下划线 + 左上角选中角标（游戏内选中态），悬停浅底。页签过多时横向滚动，不显示滚动条。
 
@@ -25,7 +25,7 @@ html
 
 示例里的切换由预览脚本模拟；MW 上是 TabberNeue 自己的脚本，皮肤只换外观。
 
-## 变体 [​](#变体)
+## 变体 
 
 变体类必须和 `.tabber` 写在**同一个元素**上（选择器是 `.tabber.ak-tabber-*`）：wikitext 里写成 `<tabber class="ak-tabber-block">`，让类落到 TabberNeue 输出的 `div.tabber` 上；外面包一层 `<div class="ak-tabber-block">` 不生效。（上线前在站点的 TabberNeue 版本上确认 `class` 属性会带到输出上；带不上时由 Gadget 给 `.tabber` 补类。）
 
@@ -46,4 +46,4 @@ html
 
 模板 / 小部件里要切换内容，用设计系统的[标签页 Tabs](/prts-design/components/tabs)（CSS 类 + Vue 组件，有竖排）；`<tabber>` 留给编辑直接写的正文。
 
-## CSS [​](#css)
+## CSS 

@@ -10,7 +10,7 @@
 
 写法同 Naive UI 的 `n-spin`：`description`、`show`、默认插槽包住内容。
 
-## 样子 · 说明 [​](#样子-·-说明)
+## 样子 · 说明 
 
 `variant="bars"` 是三根竖条（更轻，放在行内）。`color` 换色（写到 CSS 约定的 `--_c`，只对菱形生效）。`description` 排在图形下方。
 
@@ -38,7 +38,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 包住内容 [​](#包住内容)
+## 包住内容 
 
 默认插槽写了内容时，`show` 为真就把内容压淡、不可点，菱形 + 说明叠在正中；容器标 `aria-busy`。适合表格、卡片这类「旧内容还在、新数据在路上」的局部刷新；整块还没有内容时用[骨架屏](/prts-design/components/skeleton)。
 
@@ -79,12 +79,12 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 可访问性 [​](#可访问性)
+## 可访问性 
 
 - 图形 `role="status"`，可访问名默认「加载中」（`label` 改写）；有说明时念说明。
 - 包住内容时容器 `aria-busy="true"`，读屏等加载完再念变化。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -99,7 +99,7 @@ html
 | `default` | 正在加载的内容：加载层叠在它上面 |
 | `description` | 说明（代替 description） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 大小由 `font-size` 定（默认 12px → 29px 见方），`--_c` 换色。`::before` 是中央常驻的空心菱形（.75em、2px 线）；`::after` 是涟漪环——同一枚菱形用 border 画，`width` / `height` 从刚好箍住中央那枚外沿扩到 1.65em（不用 `scale`，线宽恒 2px），`opacity` 另一条曲线淡到 0，各 1.2s。游戏里环出生时还带随机剪切，这个尺寸下施展不开，没做。菱形是源石母题，见[设计理念 · 菱形](/prts-design/foundations/principles#菱形-源石)。说明与加载层（`.ak-spin` / `.ak-spin-container`）是给 Vue 组件补的外壳，模板里一般直接放 `<span class="ak-spinner" role="status" aria-label="加载中"></span>`。
 

@@ -8,7 +8,7 @@
 
 点一枚按钮拉下一列动作或链接：页面动作簇的「更多」、用户菜单、排序 / 语种切换。白底卡片、1px 边、投影；悬停 / 键盘移到的项是**左 2px 青条 + 淡底**，与侧栏当前项、搜索面板高亮行同一语言；危险项红字；组之间一条分隔线。
 
-## 基本用法 [​](#基本用法)
+## 基本用法 
 
 写法同 Naive UI 的 `n-dropdown`：默认插槽放触发元素（一般是 `AkButton`），`options` 给菜单项，选中触发 `select(key, option)`，之后菜单收起、焦点回到触发按钮。菜单项 `{ key, label, icon?, disabled?, danger?, href? }`，`{ type: "divider" }` 是分隔线。
 
@@ -64,7 +64,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 分组 · 链接项 [​](#分组-·-链接项)
+## 分组 · 链接项 
 
 `{ type: "group", label, children }` 是带小标题的一组，相邻两组之间自动一条线——对应 MW 门户（`#p-cactions` / `#p-tb`）塞进卡片的写法。有 `href` 的项渲染成 `<a>`（照常跳转，也触发 `select`）。触发按钮靠右时用 `placement="bottom-end"` 让菜单右对齐。
 
@@ -117,7 +117,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 键盘 [​](#键盘)
+## 键盘 
 
 按 [WAI-ARIA 菜单按钮](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)：
 
@@ -134,7 +134,7 @@ html
 
 鼠标点菜单外面也会收起。菜单是 `role="menu"`，名字默认取触发按钮的文字（`aria-labelledby`），`label` 可另给；组是 `role="group"` + `aria-label`（小标题只给眼睛看）。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -156,7 +156,7 @@ html
 
 `options` 的类型 `DropdownMixedOption` / `DropdownOption` 从 `@mooncellwiki/prts-design-vue` 导出。
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 无 JS 的写法：`.ak-dropdown > details > summary + .ak-menu`（原生 `<details>` 开合，皮肤的用户菜单 / 「更多」就是这样）；有 JS 时在 `.ak-dropdown` 上切 `.is-open`（Vue 版就是这样）。菜单可以是 `ul.ak-menu > li > a`，也可以是 `div.ak-menu > nav.ak-menu__group( .ak-menu__label + ul )` 分组卡片，`.ak-menu__head` 是卡片抬头（用户名）；抬头本身是入口时写成 `a.ak-menu__head( .ak-avatar + .ak-menu__head-name )`，右端带箭头（皮肤的用户菜单：点抬头去用户页）。放在正文里时外层标 `ak-not-prose`，免得吃正文的列表符与链接色。
 

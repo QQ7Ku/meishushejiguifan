@@ -6,7 +6,7 @@
 
 ---
 
-# skin.mustache 结构 [​](#skin-mustache-结构)
+# skin.mustache 结构 
 
 皮肤骨架由 SkinMustache 渲染（不写 PHP）。下面是 CSS（`packages/css/src/chrome/`）期望的 DOM 与 MW 模板数据的对应——它就是预览骨架 `preview/_src/skeleton.html` 的结构，生产皮肤（Skin:Arknights）照它输出。
 
@@ -58,7 +58,7 @@ div.ak-keyart > .ak-keyart__inner               ← 头图：恒输出，默认�
 button.ak-fab                                   ← 回到顶部（≥1120）
 ```
 
-## 门户与动作簇 [​](#门户与动作簇)
+## 门户与动作簇 
 
 - 门户用 `Skin::getPortletsTemplateData()` 输出的 `html-items`（只含 `<li>`，外层 `<ul>` 与类名由 mustache 加）。
 - **页眉不放站点级主导航**：`MediaWiki:Sidebar` 首个门户（`data-portlets-first`）只在侧栏渲染一次，成 `.ak-portlet--grid`（见[页眉 · 三列的列头](/prts-design/chrome/header#三列的列头)）。
@@ -67,7 +67,7 @@ button.ak-fab                                   ← 回到顶部（≥1120）
 - **工具箱不进侧栏**：像 Citizen `SkinCitizen::extractPageToolsFromSidebar()` 那样从 `data-portlets-sidebar.array-portlets-rest` 里按 id `p-tb` 拆出来，放进「更多」卡片（id 不变，`mw.util.addPortletLink('p-tb', …)` 照常）。其中「特殊页面 / 上传文件」是站点级的，不进「更多」——同 Citizen（`SkinHooks::moveUploadToSiteTools()` + `addSiteTools()`）进侧栏站点导航：在 `SidebarBeforeOutput` 里从 `$sidebar['TOOLBOX']` 取出（upload 由 MW 按权限决定是否存在，取不到就不渲染），`#MenuSidebar` 模式下渲染成 `#MenuSidebar` 之后的无标题门户 `nav#p-site-tools`（紧贴上一组，视觉上是「管理与编辑」的延续），`MediaWiki:Sidebar` 模式下追加到首个门户。
 - `$wgArknightsShowPageTools`（Skin:Arknights 的配置）只控制 views / actions 的可见性，「更多」里的工具箱不受它影响（同 Citizen 的 has-overflow 独立于 is-visible）。
 
-## 页脚数据 [​](#页脚数据)
+## 页脚数据 
 
 **`data-footer.*` 与门户不同**：核心 `SkinComponentFooter::formatFooterDataForCurrentSpec()` 会剥掉 `html-items` / `label` / `class`，只留下 `id`、`className`、`array-items[{id, html}]`（见 [Manual:SkinMustache.php](https://www.mediawiki.org/wiki/Manual:SkinMustache.php)），所以页脚三处必须像 Vector 的 `Footer__row.mustache` 那样逐项写 `li`：
 
@@ -77,7 +77,7 @@ button.ak-fab                                   ← 回到顶部（≥1120）
 
 写成 `{{{html-items}}}` 会渲染成空。徽章（`$wgFooterIcons`）怎么显示、怎么换白描版见[页脚 · 徽章](/prts-design/chrome/footer#徽章)。
 
-## 侧栏与 #MenuSidebar [​](#侧栏与-menusidebar)
+## 侧栏与 #MenuSidebar 
 
 现网 prts.wiki（Vector legacy）的侧栏**不是** `MediaWiki:Sidebar` 门户，而是一段 wikitext 生成、放在页面末尾的 `div#MenuSidebar`，由内联脚本在 `DOMContentLoaded` 时移进 `#mw-panel`（并把 `#p-tb ul` 的内容复制进 `#MSToolbox`、删掉其余门户）。Arknights 皮肤不用改现网 wikitext / 站点脚本就能工作：
 

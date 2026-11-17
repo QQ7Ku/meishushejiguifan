@@ -6,7 +6,7 @@
 
 ---
 
-# 干员页样例（陈） [​](#干员页样例-陈)
+# 干员页样例（陈） 
 
 信息结构 1:1 取自 prts.wiki 现网「陈」页面的 19 个章节。顶部「干员信息」= 现网 `CharinfoV2` Widget 原样（DOM / CSS / JS 一字不改，静态文件快照在 `preview/vendor/charinfo/`），其余章节 = 现网各模板 → 设计系统组件的映射（见下）。
 
@@ -14,7 +14,7 @@
 
 `preview/operator.html`[单独打开 ↗](/prts-design/preview/operator.html?theme=dark&demo=0)
 
-## 章节 [​](#章节)
+## 章节 
 
 现网「陈」页面的 wikitext 是 19 节模板调用。新皮肤下**干员页的 wikitext 一字不改，章节一节不少**：改的是各模板输出的 HTML（换成设计系统组件）；`{{CharinfoV2}}` 这块连样式表都先不动——原样跑现网 Widget，皮肤只补接缝。
 
@@ -23,7 +23,7 @@
 - 舞台之下**不设身份栏 / 题注**：代号 / 星级 / 职业 · 分支 · 位置 / 标签 / 画师 / CV / 时装舞台 HUD 上都有（手机版样式表只藏按钮，这些字段照留），所属在「属性」节的所属势力行；HUD 之外只剩情报编号 / 干员序号 / 游戏内 ID / 日文名——前三者不是关键信息，日文名属多语言名称数据，都不值得在门面外显。先前的身份栏键值表 8 行里 6 行与 HUD 复读，已整块删掉。舞台文字全由 JS 填入，无 JS / 爬虫看到的舞台是空的——生产环境若在意，让模板另出一份 `visually-hidden` 的键值，不做可见复读。
 - 属性表四维之下再四行：部署费用 / 阻挡 / 攻击间隔 / 再部署——这四项游戏数据里就是按精英阶段存的，和四维同一个轴，不另起键值表（现网附加属性表里 colspan 横跨的那几项，「19 → 21 → 23」是在一格里手搓列轴）；势力两项 `.ak-kv--inline` 一行做表脚。
 
-## 现网模板 → 组件 [​](#现网模板-→-组件)
+## 现网模板 → 组件 
 
 | 现网（wikitext → 输出） | 新结构 | 说明 |
 | --- | --- | --- |
@@ -46,7 +46,7 @@
 | `{{spineId}}`（SpineViewer） | `.sv`：选择条（时装 `.ak-chip` · 模型 `.ak-select`）+ 舞台 + 动作列表 + 时间轴 / 播放条 | 见下「[干员模型](#干员模型)」；未载入时只有一个「载入模型」`.ak-btn--primary` |
 | `{{干员导航}}` | `.navbox`（见[分类栏与杂项](/prts-design/content/catlinks#工具类)） |  |
 
-## CharinfoV2 怎么接 [​](#charinfov2-怎么接)
+## CharinfoV2 怎么接 
 
 样例页就是这么接的，生产环境同理。
 
@@ -59,11 +59,11 @@
   4. Widget 的两份样式表按**视口**宽度切（600px），脚本却按**正文**宽度（舞台的祖父元素 `#mw-content-text`）<600 判手机版。视口 601 起、正文列还不到 600 的那一段（皮肤里约 601–690），脚本会给桌面版的 1024 舞台套上手机版的缩放（`transform: scale(正文宽 / 600)` + 容器内联宽高），舞台撑出页面一倍：`@media (min-width: 601px)` 里把容器的内联宽高、wrapper 的内联 transform 用 `!important` 压掉，页面脚本算 zoom 时同样按视口判，这一段照桌面版缩。脚本内部仍当自己是手机版（时装面板的几处内联定位走手机那套），根治得改 Widget 的脚本（判断换成 `matchMedia('(max-width: 600px)')`）。
 - **接缝之外**：Widget 的手机版由脚本按正文宽度 <600 在加载时一次性决定（自己 transform 缩放，不响应 resize），视口 ≤600 时皮肤不插手——它量的是舞台的祖父元素，样例骨架因此照 MW 原样保留 `#mw-content-text.mw-body-content > .mw-parser-output` 两层（并成一层会量到带内边距的 `.ak-body`，手机上舞台比正文宽出 24px）；看图模式的滚轮缩放 / 拖拽用 `getBoundingClientRect` 对 `offsetWidth`，zoom 之下拖动手感会差一个系数（全屏时 zoom 归 1，不受影响）。
 
-### 换皮草案（暂不接入） [​](#换皮草案-暂不接入)
+### 换皮草案（暂不接入） 
 
 `packages/css/src/charinfo.css` 是对同一套 DOM 的皮肤化草案：黑玻璃 HUD（同页眉）、直角、选中 = 青条 + 青字、名字牌 = 思源 900 + 6px 青条（不再要 `charname` 字体）、时装 / 场景抽屉从右缘滑入、整块按容器宽度 `transform: scale(var(--charinfo-scale))`、≤639 藏 HUD 只留页签与名字牌。它不在 `index.css` / `skin.json` 里。真要接入得连 JS 一起改三处：resize 只设 `--charinfo-scale`；选中态从换蓝图标 + 内联 color 改成加类 `.is-active`；面板 / 抽屉开合从内联 height / right / opacity 改成加类 `.is-open` `.is-show` `.is-watch`。先把现网的动效 / 文本排布 / 试听语音 / BGM 原样看全，再定换皮范围。
 
-## 干员模型 [​](#干员模型)
+## 干员模型 
 
 页面最后一节 = 现网的 SpineViewer（prts-widgets `src/widgets/SpineViewer/`）。**运行时、模型地址、`meta.json` 的结构都与现网相同**（样例页真的从 `torappu.prts.wiki` 取模型来播；运行时是 prts-widgets 那一份的快照 `preview/vendor/spine/`，`node scripts/fetch-spine.ts`；导出 GIF 用的 gifenc 同现网一个版本，快照在 `preview/vendor/gifenc/`，`node scripts/fetch-gifenc.ts`，点了导出才加载），换的是「怎么看」。样例页那段脚本是 Widget 的替身，地址栏加 `?spine=char_4104_coldst` 可以换一位干员看（动作多的 / JSON 骨骼的 / 只有「战斗」一面的）；`?spine=enemy_1265_durcar` 是模型多的敌人（自走车，31 个；敌人没有 `meta.json`，模型表是页面里内联的那份，样例页留了一份快照）。
 
@@ -88,7 +88,7 @@
 
 实现上的一处不同：现网用 `AnimationState` 推进时间，循环靠每圈重新入队来绕开多圈累加的旋转问题；这里每帧从初始姿态起把动作在 `t` 时刻的姿态直接套上（`Animation.apply` + `MixBlend.setup`），同一个 `t` 永远是同一个姿态，所以能拖、能逐帧、能倒退，也没有累加问题。运行时里 prts-widgets 的修补（旋转 ±180° 处的 `Math.fround`）在 `RotateTimeline` 里，这条路径照样经过。
 
-## 皮肤与页面的分工 [​](#皮肤与页面的分工)
+## 皮肤与页面的分工 
 
 **皮肤这半**：无——干员页不需要皮肤层的特殊处理，标题 / 目录 / 动作簇照常（目录自动收 19 个 h2 + 技能 / 模组的 h3）。
 

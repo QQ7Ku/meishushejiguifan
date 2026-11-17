@@ -8,7 +8,7 @@
 
 几个里选一个（同 Naive UI 的 `n-radio-group` + `n-radio` / `n-radio-button`）。`AkRadioGroup` 的 `v-model` 是选中项的 `value`；里面放 `AkRadio` 是一排圆形单选，放 `AkRadioButton` 是连成一排的分段控件。
 
-## 单选组 [​](#单选组)
+## 单选组 
 
 **圆是单选的通用语义**，也是整套系统里 UI 控件唯一的圆（选中 = 主色实底 + 圆点）。长相与裸 `<input type="radio">` 同一套（[裸控件规则](/prts-design/content/forms)），组给它们同一个 `name`，方向键在组内移动并选中是浏览器自己的。`vertical` 竖排，`size="sm"` 16px。
 
@@ -49,7 +49,7 @@ html
 
 单独用的 `AkRadio` 与原生写法一样：几个 `<AkRadio v-model="picked" value="…">` 绑同一个变量、写同一个 `name`。
 
-## 单选按钮组 [​](#单选按钮组)
+## 单选按钮组 
 
 `AkRadioButton` 渲染成 `.ak-btn-group` 里的 `.ak-btn`，选中 `.is-active`（主色实底）：视图切换（列表 / 网格 / 表格）、排序方式这类**立即生效**的多选一。写法同 [按钮](/prts-design/components/button/)：`icon` 放图标，不写文字就是方形图标按钮（这时 `label` 必填）；`size` 写在组上（30 / 36 / 44）。
 
@@ -97,7 +97,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 键盘 [​](#键盘)
+## 键盘 
 
 按 [WAI-ARIA Radio Group](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)：
 
@@ -110,9 +110,9 @@ html
 
 普通单选这些是浏览器对同名 `<input type="radio">` 的原生行为；单选按钮组由 `AkRadioGroup` 实现（`role="radiogroup"` + 每项 `role="radio"` `aria-checked`，roving tabindex：只有选中项 `tabindex="0"`）。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkRadioGroup [​](#akradiogroup)
+### AkRadioGroup 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -131,7 +131,7 @@ html
 | --- | --- |
 | `default` | 若干 AkRadio，或若干 AkRadioButton |
 
-### AkRadio [​](#akradio)
+### AkRadio 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -150,7 +150,7 @@ html
 | --- | --- |
 | `default` | 文字 |
 
-### AkRadioButton [​](#akradiobutton)
+### AkRadioButton 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -163,7 +163,7 @@ html
 | --- | --- |
 | `default` | 文字；不写就是图标按钮 |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 html
 

@@ -10,7 +10,7 @@
 
 各控件：[输入框](/prts-design/components/input) · [数字输入](/prts-design/components/input-number) · [下拉选择](/prts-design/components/select) · [复选框](/prts-design/components/checkbox) · [单选](/prts-design/components/radio) · [开关](/prts-design/components/switch) · [滑杆](/prts-design/components/slider) · [搜索框](/prts-design/components/search) · [键帽](/prts-design/components/kbd)。
 
-## 标签 · 必填 · 说明 [​](#标签-·-必填-·-说明)
+## 标签 · 必填 · 说明 
 
 `label` 渲染成 `<label for>`，指向字段里的第一个控件——控件的 id 由字段生成，不用自己写。`required` 在标签后出红色 `*`（读屏不念，控件自己带 `required`）。`feedback` 是标签下面那行小字，经 `aria-describedby` 关联到控件。
 
@@ -60,7 +60,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 校验状态 [​](#校验状态)
+## 校验状态 
 
 `validation-status="error"`：字段加 `.is-invalid`、控件红边 + `aria-invalid`、文案变红字；`success`：输入框绿边。原生的 `:user-invalid`（`required` 空着、`maxlength` 超了……）也是红边，只在用户改过之后才判，不会一进页面满屏红。
 
@@ -98,7 +98,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 各种控件 [​](#各种控件)
+## 各种控件 
 
 一组复选框 / 单选没有单个可以 `for` 的控件：字段的标签改由组 `aria-labelledby` 指向（`role="group"` / `radiogroup`），标签不写 `for`。步进器、开关这类定宽控件在字段里不拉满一行。
 
@@ -157,7 +157,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 可访问性 [​](#可访问性)
+## 可访问性 
 
 | 关系 | 输出 |
 | --- | --- |
@@ -169,7 +169,7 @@ html
 
 字段里自己写的原生控件，用默认插槽的参数拿 id：`<AkField label="…" v-slot="{ id }"><input :id="id"></AkField>`。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -184,7 +184,7 @@ html
 | `label` | 标签内容（代替 label，要放链接 / 图标时用） |
 | `feedback` | 说明 / 校验文案（代替 feedback） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 模板 / Lua 输出：
 

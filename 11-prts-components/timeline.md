@@ -8,7 +8,7 @@
 
 左侧一条 2px 竖线 + 菱形节点的时间序列：版本记录、活动排期、剧情节点。节点空心 = 未到 / 普通，主色实心 = 已发生（`done`）或当前（`active`）。时间用 Bender 小字压在标题上方。
 
-## 基本 [​](#基本)
+## 基本 
 
 写法同 Naive UI 的 `n-timeline`：`AkTimeline` 里放若干 `AkTimelineItem`，`time` / `title` / `content` 三段文字，`status` 定节点。
 
@@ -35,7 +35,7 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## 标题插槽 [​](#标题插槽)
+## 标题插槽 
 
 标题要带标签 / 链接时用 `#header` 插槽，说明写在默认插槽里（代替 `content`）。
 
@@ -72,13 +72,13 @@ html
 
 上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
 
-## Vue API [​](#vue-api)
+## Vue API 
 
-### AkTimeline [​](#aktimeline)
+### AkTimeline 
 
 只有默认插槽（若干 `AkTimelineItem`），输出 `<ul class="ak-timeline">`。
 
-### AkTimelineItem [​](#aktimelineitem)
+### AkTimelineItem 
 
 | 属性 | 类型 | 默认 | 说明 |
 | --- | --- | --- | --- |
@@ -92,7 +92,7 @@ html
 | `header` | 标题（代替 title） |
 | `default` | 说明（代替 content） |
 
-## CSS 实现 [​](#css-实现)
+## CSS 实现 
 
 `<ul class="ak-timeline">` 直接写在正文（`.mw-parser-output`）里就对，不用标 `ak-not-prose`：正文列表的缩进、段距与项目符号（`ul > li::before`）由时间线自己的规则压住（各带一个 `.mw-parser-output` 前缀的同义选择器），菱形节点不受影响；说明里的链接照常是正文链接。
 

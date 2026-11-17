@@ -6,7 +6,7 @@
 
 ---
 
-# 消息框 [​](#消息框)
+# 消息框 
 
 `base/notices.css`：核心与扩展输出的提示——`mw-message-box`（旧式 `Html::warningBox` 等）、Codex 的 `cdx-message`（编辑页、特殊页面）、维基常见的 `{{ambox}}` 式表格消息框，以及 hatnote（「关于 X，请见 Y」）。
 
@@ -22,7 +22,7 @@ html
 <div class="hatnote">本文介绍干员「陈」。关于假日威龙陈，请见「陈（假日威龙）」。</div>
 ```
 
-## ambox [​](#ambox)
+## ambox 
 
 `{{ambox}}` 一类的表格消息框（`table.ambox` / `.messagebox`）同一张脸，底色固定浅一档，类型只换色条：`ambox-notice` 信息 · `ambox-content` 警告 · `ambox-delete` / `ambox-serious` 危险 · `ambox-style` 黄。
 
@@ -33,8 +33,8 @@ html
 <table class="ambox ambox-style" style="width:100%"><tr><td class="mbox-text">本条目的格式需要整理。</td></tr></table>
 ```
 
-## 和组件的关系 [​](#和组件的关系)
+## 和组件的关系 
 
 这里是**MW 自己输出**的提示。编辑在正文里写提示用[正文提示框 Cbox](/prts-design/components/cbox)（= 现网 `{{Cbox2}}`）；模板 / 小部件里的状态消息用[消息 Message](/prts-design/components/message)。三者同一套色条语言，但结构和用途不同，不要互相冒充。
 
-## CSS [​](#css)
+## CSS 
