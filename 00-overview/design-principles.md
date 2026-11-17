@@ -1,0 +1,127 @@
+# 设计总纲
+
+> 来源：https://icaruszezen.github.io/endfield-ui/design/overview/
+>
+> 本文档由 endfield-ui 设计规范站点自动归档，供 AI 学习复刻 UI 与美术设计使用。
+
+---
+
+《明日方舟：终末地》的视觉语言，以及这套文档怎么组织。
+
+## 一句话定位
+
+**工业编辑风**：把界面当成一份印出来的技术文档——纸白或烟黑的底、墨黑的字、一处高饱和的信号色——再叠上一层克制的测绘与印刷痕迹。
+
+它不是"深色赛博朋克"，也不等于"黑底黄字加切角"。官网大部分时候是白底的。
+
+## 三个载体，三种气质
+
+同一套语言在不同载体上的侧重不同。做设计前先确认自己在做哪一种。
+
+|  | 官网 | 游戏界面 | 宣传物料 |
+| --- | --- | --- | --- |
+| 基底 | 纸白为主，深色版块穿插 | 亮暗并存，按界面功能选择 | 随主题变化 |
+| 强调色 | 信号黄 `#FFFA00` 一种 | 黄 + 一组有分工的角色色 | 版本、角色、地区的主题色可以整页接管 |
+| 形状 | 直角为主，圆形与胶囊点缀 | 切角、斜楔、圆弧、胶囊按语义混用 | 自由，刊头与标题可以很张扬 |
+| 信息密度 | 低，大图大字 | 高，分区停靠 | 中到高，按体裁分章 |
+| 装饰 | 斜纹、点阵、线稿、注册色条 | 网格、等高线、刻度、角括号 | 加上手写批注、印章、贴纸等"人的痕迹" |
+| 本仓库的证据 | 实测 | 社区 | 观察 + 社区 |
+| 详细规范 | [website.md](/endfield-ui/design/surfaces/website/) | [game-ui.md](/endfield-ui/design/surfaces/game-ui/) | [promotional.md](/endfield-ui/design/surfaces/promotional/) |
+
+组件库以**官网气质**为默认（亮色、直角、单一信号色），用暗色主题与角色色覆盖游戏界面的需要。
+
+官网域名下还有一个 [云游戏页](/endfield-ui/design/surfaces/cloud/)（`/cloud`）：另一套构建，按钮组件一律是胶囊，顶栏和浮层是毛玻璃，黄色分成品牌黄 `#FFF100` 和按钮黄 `#F2E200` 两种。它仍归在"官网"这个载体里；上表的"官网"一栏和"官网气质"都指官网首页，云游戏页和规范对不上的地方汇总在 [和规范不一致的地方](/endfield-ui/design/surfaces/cloud/#和规范不一致的地方)。
+
+## 六条核心原则
+
+这六条在三个载体上都成立，是判断"像不像"的依据。
+
+### 1. 纸与墨是主体，颜色是信号
+
+大面积只用中性色。信号黄只出现在需要被看见的那一处：当前导航项、主要行动、进度、选中。一屏里黄色面积超过一成，多半是用错了。
+
+→ [色彩](/endfield-ui/design/foundations/color/)
+
+### 2. 主角偏心，信息靠边
+
+人物、地图、大字或主图占据偏离中心的大块面积；导航、标签、说明停靠在边缘、侧轨或细带上。不要把所有内容装进等大的卡片网格。
+
+→ [布局](/endfield-ui/design/foundations/layout/)
+
+### 3. 形状有含义
+
+直角与切角表示机械、导航、权限与行动；圆与弧表示头像、技能、仪表；胶囊表示筛选、资源与短状态。同一语义在全站用同一种形状，不同语义之间的形状对比本身就是风格的一部分。
+
+→ [形状](/endfield-ui/design/foundations/shape/)
+
+### 4. 两种文字，两个层次
+
+中文黑体承担阅读；宽体或几何体的英文承担结构——分节名、编号、坐标、微标签。英文层是"技术副层"，必须是真实可读的内容，不能是凑数的伪代码。
+
+→ [字体](/endfield-ui/design/foundations/typography/)
+
+### 5. 纹理有预算
+
+斜纹、网格、等高线、点阵、注册色条都是可选的。一屏选一到两种，对比度压到内容之下。去掉纹理后界面仍然成立，才说明纹理没有喧宾夺主。
+
+→ [纹理](/endfield-ui/design/foundations/texture/)
+
+### 6. 动得短，动得硬
+
+过渡以 0.2 – 0.3 秒为主，用位移、擦入和明暗反转表达状态，不用弹跳和持续漂浮。闪烁式点亮是少数被允许的"戏剧性"动效。
+
+→ [动效](/endfield-ui/design/foundations/motion/)
+
+## 常见误区
+
+| 误区 | 实际情况 |
+| --- | --- |
+| 必须是暗色 | 官网以白为主；游戏内的菜单、仓库、技能树也有大量浅色界面 |
+| 所有东西都要切角 | 官网几乎不用切角；切角主要出现在游戏内的行动与机械类控件上 |
+| 完全没有圆角 | 头像、翻页钮是正圆，分页条、导航器、切换器是胶囊，按钮、页签、小标签有 2 – 6px 的微圆角。云游戏页的按钮组件一律是胶囊，主行动是黄胶囊；这里的按钮不做胶囊，取的是那一页顶栏导航项的 4px 微圆角，见 [云游戏页](/endfield-ui/design/surfaces/cloud/#和规范不一致的地方) |
+| 黄色越多越像 | 黄是信号。游戏内还有橙、蓝、青、红、紫等角色色各司其职 |
+| 禁止阴影和辉光 | 官网大量使用零偏移的黑色环境阴影；辉光极少但存在 |
+| 英文小字随便写 | 官方的微文字是可读的固定句式；伪造的遥测数据和乱码会让界面显得廉价 |
+| 每个块都要描一圈边 | 默认不围整圈边框，层次靠底色差、一条边线或一条左缘色条。整圈边框只在浮层、围住信息的容器、填充反转的标签、物品格这类地方成立，见 [形状](/endfield-ui/design/foundations/shape/#不围整圈边框) |
+
+## 文档地图
+
+```
+design/
+├── overview.md          本页
+├── foundations/         基础：单看一个维度
+│   ├── color            色彩
+│   ├── typography       字体
+│   ├── shape            形状
+│   ├── layout           布局与空间
+│   ├── motion           动效
+│   ├── texture          纹理与装饰
+│   ├── iconography      图标
+│   └── imagery          图像
+├── elements/            母题：单个标志性元素怎么画、什么时候不用
+├── surfaces/            载体：官网（含云游戏页）、游戏界面、宣传物料各自的整体面貌
+├── components/          组件：落到按钮、卡片、表单时的状态与尺寸
+├── references/          依据：实测数据、官方来源、开源项目调研
+└── assets/              本仓库原创的 SVG 图解
+```
+
+建议的阅读顺序：本页 → [色彩](/endfield-ui/design/foundations/color/) → [形状](/endfield-ui/design/foundations/shape/) → [官网](/endfield-ui/design/surfaces/website/) → 按需查阅其余部分。
+
+## 怎么读这些文档
+
+**来源等级。** 每条规范都标了依据：
+
+- **实测**：从官网样式里直接读到的数值，原始数据在 [measurements.md](/endfield-ui/design/references/measurements/)（官网首页）和 [measurements-cloud.md](/endfield-ui/design/references/measurements-cloud/)（云游戏页，标作"实测（云游戏页）"；页里嵌的鹰角账号弹窗标作"实测（账号 SDK）"）。
+- **观察**：打开官方公开页面看到的现象；云游戏页上只能看图、读像素的标作"观察（云游戏页）"。
+- **社区**：开源项目作者的取值或观察，本仓库没有独立验证，出处在 [open-source-projects.md](/endfield-ui/design/references/open-source-projects/)。
+- **推断**：本文档自己给出的设计建议。
+
+"实测"和"观察"是事实，"社区"和"推断"是可以被推翻的判断。游戏界面部分目前以"社区"为主，欢迎用实机观察来校正。
+
+**图。** 文档里的图都是本仓库原创的 SVG 示意，用来说明结构和比例，不是官方画面的复刻。想看原貌请点文档里的官方链接，入口汇总在 [official-sources.md](/endfield-ui/design/references/official-sources/)。
+
+**令牌。** 文档里用反引号写的令牌名（如 `signal`、`surface-raised`）对应 [theme.css](https://github.com/icaruszezen/endfield-ui/blob/main/packages/ui/src/styles/theme.css) 里的变量，可以直接作为 Tailwind 工具类使用（`bg-signal`、`bg-surface-raised`）。
+
+## 边界
+
+这套规范描述的是公开可见的视觉特征。它不提供、也不鼓励使用官方的 Logo、立绘、截图和字体；详见 [NOTICE](https://github.com/icaruszezen/endfield-ui/blob/main/NOTICE.md)。

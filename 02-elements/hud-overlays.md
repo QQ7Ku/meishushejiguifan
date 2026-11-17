@@ -1,0 +1,201 @@
+# 测绘叠层
+
+> 来源：https://icaruszezen.github.io/endfield-ui/design/elements/hud-overlays/
+>
+> 本文档由 endfield-ui 设计规范站点自动归档，供 AI 学习复刻 UI 与美术设计使用。
+
+---
+
+叠在展示性画面上的仪表与取景元素：刻度圆环、取景角、准星、坐标读数、滚动提示。它们让画面看起来像"正在被某个设备观测"。
+
+[![测绘与仪表叠层](/endfield-ui/design/figures/elements/hud-overlays.svg)](/endfield-ui/design/figures/elements/hud-overlays.svg)
+
+测绘与仪表叠层
+
+## 先说边界
+
+这是最容易用过头的一组元素。
+
+- **只用在展示性画面上**：首屏、三维模型展示、地图、媒体播放。
+- **不进入日常操作界面**：表单、列表、设置、文档。
+- **每个读数都必须是真的。** 没有真实数据就不放读数。
+
+## 刻度圆环
+
+官网世界观版块围绕点云模型的那组圆环（观察）。
+
+| 部件 | 画法 |
+| --- | --- |
+| 内环 | 1px 细实线，白色 35% |
+| 外圈刻度 | 沿圆周均匀分布的短线，约 40 – 60 根 |
+| 粗弧 | 两段不对称的粗线（5 – 6px），各占圆周的 10% – 20% |
+| 旋转 | 整体可缓慢匀速旋转（官网有一个匀速旋转一周的关键帧） |
+
+用 SVG 画，刻度用 `stroke-dasharray`：
+
+```
+<svg viewBox="0 0 240 240" aria-hidden="true" class="text-ink">
+  <circle cx="120" cy="120" r="96" fill="none" stroke="currentColor" stroke-opacity=".35" />
+  <!-- pathLength 把周长归一化成 400，短线 1.5、间隔 8.5，共 40 根刻度 -->
+  <circle
+    cx="120" cy="120" r="114"
+    fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="8"
+    pathLength="400" stroke-dasharray="1.5 8.5"
+  />
+  <path d="M120 6A114 114 0 0 1 219 63" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="5" />
+</svg>
+```
+
+规则：
+
+- 圆环**围住一个主体**（模型、头像、地图焦点）。空转的圆环没有意义。
+- 弧段不对称。两段等长、对称摆放的弧看起来像加载指示。
+- 只用白与灰（深色底）或墨与灰（浅色底）。
+
+圆环也用于真实的仪表：进度环、冷却弧。那时它承载数据，画法见 [反馈](/endfield-ui/design/components/feedback/)。
+
+已实现为 `<TickRing size ticks spin>`，被围住的主体作为子元素传入、居中：
+
+- `size` 是直径，数字是像素，也可以传 `"100%"` 跟着容器走；`ticks` 是刻度的根数，默认 40；
+- 颜色继承文字（`ink`），按上表的比例取不透明度：浅色底上是墨与灰，暗色主题下是白与灰。压在深色画面上时给它加 `data-theme="dark"`；
+- 两段粗弧一长一短（约占圆周的 17% 与 10%）、不对称摆放；
+- `spin` 打开后整体匀速旋转，60 秒一圈（`animate-spin-slow`）；系统开启"减少动态效果"时静止。
+
+## 刻度尺
+
+一根笔直的刻度带。云游戏页"更多"里每节顶上都有一根，下方还有一根黄色斜纹长条（见 [斜纹与色条](/endfield-ui/design/elements/stripes-and-strips/#斜纹)）。
+
+| 部件 | 画法 | 来源 |
+| --- | --- | --- |
+| 浅刻度 | `#CFCFCF` 的短竖线，原图里约每 30.6px 一根 | 观察（云游戏页） |
+| 深刻度 | 每第五根换成 `#999999`，更粗，通高 | 观察（云游戏页） |
+| 端头 | 右端一段 160 设计 px 的白色渐隐；第 2、4 节左右镜像，渐隐在左端 | 实测（云游戏页） |
+| 走动 | 两份首尾相接，40 秒一圈匀速向左走，无缝循环 | 实测（云游戏页） |
+| 入场 | 露出时"闪三下"亮起：8 段的不透明度关键帧，0.25s | 实测（云游戏页） |
+
+刻度画在一张图里，走动是 CSS 动画。系统开启"减少动态效果"时，云游戏页把所有动画压到一瞬间、只播一次：入场直接到终态，刻度也不再走。
+
+库里没有这个组件。要做的话：它是纯装饰，对读屏隐藏，只放在展示性画面上；刻度不对应任何读数，不要配数字；"减少动态效果"时停住不走。见 [云游戏页](/endfield-ui/design/surfaces/cloud/#更多)。
+
+## 取景角与准星
+
+- **取景角**：画面四角的 L 形线，臂长 16 – 24px，线宽 1.5px。标出"取景范围"。
+- **准星**：画面焦点处的小十字，臂长 6px。焦点可以用信号黄。
+
+画法与 [角括号](/endfield-ui/design/elements/brackets-and-markers/) 相同，区别在含义：角括号 = 选中，取景角 = 范围。
+
+游戏内的图鉴用准星占位符表示"未获得"的条目（社区）。
+
+已实现为 `<Viewfinder size crosshair readouts animate>`，被框住的画面作为子元素传入：
+
+- 取景角画在画面内侧 12px 处，线宽 1.5px，臂长两档：`sm` 16px、`md` 24px；
+- `crosshair` 在正中放一个 12px 的准星，用 `accent-ink`；
+- `readouts` 是四个角上的读数（`topLeft`、`topRight`、`bottomLeft`、`bottomRight`），只渲染给了值的角；
+- **颜色跟的是画面，不是页面**：取景角用 `ink`，画面是深色的就给它加 `data-theme="dark"`，浅色的画面放在暗色页面里则加 `data-theme="light"`；
+- 取景角与准星是装饰（对读屏隐藏，高对比模式与打印时去掉）；读数是真实信息，读屏读得到。
+- 取景角平时是静态的。`animate` 让它在挂上的时候落位一次（八段短线各自从角上伸出来，200ms，同 [角括号](/endfield-ui/design/elements/brackets-and-markers/#角括号选中) 的 `animate-bracket-in`）——给"这一层刚打开"的场合用，[图片查看](/endfield-ui/design/components/card/#图片查看) 的舞台就是。外面那一层自己有淡入的话，在外层设 `--bracket-delay` 让它等一等。（推断）
+
+## 坐标读数
+
+画面角落的小号等宽文字：坐标、比例、版本、时间。
+
+| 项 | 规范 |
+| --- | --- |
+| 字体 | `font-tech`，等宽数字 |
+| 字号 | `text-micro` |
+| 颜色 | 深色底上 `neutral-400`，浅色底上 `ink-tertiary` |
+| 位置 | 贴画面的角，与取景角对齐 |
+
+实现里读数用 `text-xs`（12px）和 `ink-secondary`，比上表大一档、深一档：读数承载的是真实信息，按 [微文字](/endfield-ui/design/elements/ghost-and-micro-text/) 的规则不能小于 12px，对比度按正文要求。`ink-secondary` 在暗色下的取值正好是上表的 `neutral-400`。
+
+**内容必须真实**：
+
+| 可以放 | 不要放 |
+| --- | --- |
+| 地图的真实坐标与比例尺 | 随机数字 |
+| 模型的真实旋转角度 | 每帧跳动的假读数 |
+| 当前日期、版本号、构建号 | 假的经纬度、假的信号强度 |
+| 媒体的真实时间码 | `SYS.OK` `LINK.STABLE` 这类伪状态 |
+
+游戏内常驻角落的小字是延迟、版本、UID 这些真实的运行信息（社区）。
+
+## 滚动提示
+
+一条细竖线 + 一个下坠的光点，上方一行 `SCROLL`（实测）。
+
+- 光点的动画：下移 1.5rem 并淡出，循环。`animate-scroll-hint`。
+- 只在**确实可以向下滚动**时出现；滚动开始后淡出。
+- 放在首屏底部中央或右下。
+
+移动端的变体是一个向下的折线箭头加 `SCROLL` 小字。
+
+已实现为 `<ScrollHint label variant target>`：
+
+- `variant="line"`（默认）是 40px 的细竖线加一个 6px 的光点，`variant="chevron"` 是折线箭头；
+- 光点与箭头用 `accent-ink`：暗色下是信号黄，亮色下是强调色的深档——白色或黄色的光点在亮色页面上看不见；
+- 组件自己判断该不该出现：页面（或 `target` 指定的滚动容器）确实还能往下滚、并且滚动量不到 8px 时才显示，滚动开始后淡出，回到顶部又出现；
+- 它只管自己长什么样，位置由使用方定；
+- 纯装饰：`aria-hidden`，不可点击，也不挡住下面的内容。
+
+## 录制指示
+
+一个硬切明灭的红点，旁边 `[ REC ]`。官网干员版块的进度条旁有 `[ REC ]` 字样（观察）；配闪烁红点的做法出自社区项目。
+
+只在确有"进行中"语义时用：正在录制、直播中、实时数据。不要当成氛围装饰——红色在这套语言里是危险与紧急。
+
+已实现为 `<RecIndicator label blink>`：
+
+- 红点 8px，用角色色里的 `alert`，两个主题下相同；明灭是 `animate-blink`（1 秒一次、硬切），`blink={false}` 改成常亮；
+- 方括号是 `ink-tertiary`，中间的字是 `ink`，`font-tech` 12px 全大写。压在深色画面上时给容器加 `data-theme="dark"`；
+- 中间的字（默认 `REC`，也可以是 `LIVE`）是真实的状态，读屏读得到；红点与方括号是装饰；
+- 系统开启"减少动态效果"时红点停在常亮。
+
+## 键位提示
+
+PC 游戏界面里遍布的白色小方块键帽（社区）：一个白底墨字的小方块，写着按键字母，贴在对应的控件旁。
+
+- 只用于**真的支持键盘快捷键**的桌面应用。
+- 触屏界面和普通网页不要伪造键帽。
+- 用 `<kbd>` 元素。
+
+```
+<kbd class="inline-grid size-5 place-items-center bg-surface-inverse font-tech text-xs font-medium text-ink-inverse">
+  F
+</kbd>
+```
+
+已实现为 `<Kbd size>`：
+
+- 高度两档：`sm` 20px（默认）、`md` 24px。单个字母是正方形，`Ctrl`、`Esc` 这类按内容加宽；
+- 底是反转块（`surface-inverse`）：亮色下是墨色键帽，暗色下就是游戏界面里的白键帽；
+- 组合键分开写，中间的加号是普通文字：`<Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>`。
+
+## 实现要点
+
+- 所有叠层放在一个 `pointer-events: none` 的绝对定位层里，`aria-hidden="true"`。
+- 承载真实信息的读数（时间码、坐标）例外：它们需要可读，放在可访问的元素里。
+- 旋转、下坠等循环动画遵守"减少动态效果"。
+- 窄屏上先去掉取景角和读数，保留主体。
+
+## 宜 / 忌
+
+**宜**
+
+- 一个画面只用两三种叠层。
+- 让叠层和主体有空间关系：圆环围住模型，准星对准焦点。
+- 读数用真实数据源。
+
+**忌**
+
+- 在表单页、文档页的四角画取景角。
+- 满屏跳动的假数字。
+- 霓虹辉光的圆环、扫描线、全息故障效果。
+- 六边形、蜂窝、雷达扫描扇面——这些是通用科幻的符号，不是终末地的。
+- 用红色录制点做装饰。
+
+## 来源
+
+- 滚动提示的关键帧、旋转动画：[measurements.md](/endfield-ui/design/references/measurements/) 第 7 节。
+- 键位提示、准星占位符、"读数必须真实"：[Statrue/endfield-design-skill](https://github.com/Statrue/endfield-design-skill)。
+- 取景角、录制指示：[LaoBiDeng321/Endfield-Style-Skill](https://github.com/LaoBiDeng321/Endfield-Style-Skill)。
+- 刻度尺：[measurements-cloud.md](/endfield-ui/design/references/measurements-cloud/) 第 6、7、8.9 节；[云游戏页](/endfield-ui/design/surfaces/cloud/#更多)。
