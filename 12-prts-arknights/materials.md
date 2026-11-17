@@ -1,0 +1,176 @@
+# 材料表 Materials
+
+> 来源：https://mooncellwiki.github.io/prts-design/arknights/materials
+>
+> PRTS Design 文档自动归档，供 AI 学习复刻 UI 与美术设计。
+
+---
+
+精英化 / 技能升级 / 专精训练要的材料：左列是阶段或等级（Bender 小号大写标签字，可带精英化图标），右列是这一步要的一排[道具](/prts-design/arknights/item)，一行一步。两列网格对齐，左列按最宽的标签收紧。
+
+写法同 Naive UI 的 `n-descriptions`：`AkMaterials` 里放若干 `AkMaterialsRow`（`label` 是左列文字，默认插槽放 `AkItem`）；里面的 `AkItem` 没写 `size` 时自动画成 `sm`（40px，材料表的规格；同 `AkItemList` 的 `size`，由行向下提供），写了就以写的为准。
+
+## 精英化材料 [​](#精英化材料)
+
+左列要放精英化图标时用 `#label` 插槽。图标是游戏白线稿，亮色主题下自动反相。
+
+[Storybook ↗](/prts-design/storybook/?path=/story/arknights-materials--promotion)
+
+vue
+
+```
+<script setup lang="ts">
+import { asset } from "../../../demo/asset";
+import AkItem from "../../Item/AkItem.vue";
+import AkMaterials from "../AkMaterials.vue";
+import AkMaterialsRow from "../AkMaterialsRow.vue";
+
+/** 陈 · 精英化材料：左列放精英化图标用 #label 插槽 */
+const f = (id: string) => asset(`item/framed/${id}.png`);
+const e = (n: number) => asset(`elite/elite_${n}.png`);
+</script>
+
+<template>
+  <AkMaterials>
+    <AkMaterialsRow>
+      <template #label><img :src="e(0)" alt="" />→<img :src="e(1)" alt="" /> 精英阶段 0→1</template>
+      <AkItem :src="f('4001')" name="龙门币" count="3w" />
+      <AkItem :src="f('3221')" name="近卫芯片" :count="5" />
+      <AkItem :src="f('30012')" name="固源岩" :count="12" />
+      <AkItem :src="f('30062')" name="装置" :count="3" />
+    </AkMaterialsRow>
+    <AkMaterialsRow>
+      <template #label><img :src="e(1)" alt="" />→<img :src="e(2)" alt="" /> 精英阶段 1→2</template>
+      <AkItem :src="f('4001')" name="龙门币" count="18w" />
+      <AkItem :src="f('3223')" name="近卫双芯片" :count="4" />
+      <AkItem :src="f('30115')" name="聚合剂" :count="4" />
+      <AkItem :src="f('30074')" name="白马醇" :count="6" />
+    </AkMaterialsRow>
+  </AkMaterials>
+</template>
+```
+
+html
+
+上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
+
+## 技能升级材料 · 分段说明 [​](#技能升级材料-·-分段说明)
+
+`AkMaterialsDivider` 是横跨两列的一条虚线 + 小字（「达到精英阶段 1 后解锁」），放在它说明的那几行之前。数据驱动时 `v-for` 出行即可。
+
+[Storybook ↗](/prts-design/storybook/?path=/story/arknights-materials--skill)
+
+vue
+
+```
+<script setup lang="ts">
+import { asset } from "../../../demo/asset";
+import AkItem from "../../Item/AkItem.vue";
+import AkMaterials from "../AkMaterials.vue";
+import AkMaterialsDivider from "../AkMaterialsDivider.vue";
+import AkMaterialsRow from "../AkMaterialsRow.vue";
+
+/** 陈 · 技能升级材料（1→7，所有技能共用）：数据驱动时 v-for 即可；精英一之后的几级前面加一条分段说明 */
+const f = (id: string) => asset(`item/framed/${id}.png`);
+const steps = [
+  { label: "1 → 2", items: [["3301", "技巧概要·卷1", 5]] },
+  { label: "2 → 3", items: [["3301", "技巧概要·卷1", 5], ["30011", "源岩", 6], ["30061", "破损装置", 4]] },
+  { label: "3 → 4", items: [["3302", "技巧概要·卷2", 8], ["30022", "糖", 5]] },
+  { label: "4 → 5", divider: "达到精英阶段 1 后解锁", items: [["3302", "技巧概要·卷2", 8], ["30032", "聚酸酯", 4], ["30042", "异铁", 4]] },
+  { label: "5 → 6", items: [["3302", "技巧概要·卷2", 8], ["30063", "全新装置", 4]] },
+  { label: "6 → 7", items: [["3303", "技巧概要·卷3", 8], ["30073", "扭转醇", 5], ["30053", "酮凝集组", 4]] },
+] as { label: string; divider?: string; items: [id: string, name: string, count: number][] }[];
+</script>
+
+<template>
+  <AkMaterials>
+    <template v-for="s in steps" :key="s.label">
+      <AkMaterialsDivider v-if="s.divider">{{ s.divider }}</AkMaterialsDivider>
+      <AkMaterialsRow :label="s.label">
+        <AkItem v-for="[id, name, count] in s.items" :key="id" :src="f(id)" :name="name" :count="count" />
+      </AkMaterialsRow>
+    </template>
+  </AkMaterials>
+</template>
+```
+
+html
+
+上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
+
+## 专精训练 [​](#专精训练)
+
+左列可以放别的组件——这里是换了专精小图标的[精英化](/prts-design/arknights/elite)标记。
+
+[Storybook ↗](/prts-design/storybook/?path=/story/arknights-materials--mastery)
+
+vue
+
+```
+<script setup lang="ts">
+import { asset } from "../../../demo/asset";
+import AkElite from "../../Elite/AkElite.vue";
+import AkItem from "../../Item/AkItem.vue";
+import AkMaterials from "../AkMaterials.vue";
+import AkMaterialsRow from "../AkMaterialsRow.vue";
+
+/** 陈 · 赤霄·绝影的专精训练：左列可以放别的组件（这里是精英化 / 专精标记） */
+const f = (id: string) => asset(`item/framed/${id}.png`);
+const mastery = [
+  [["3303", "技巧概要·卷3", 8], ["30104", "RMA70-24", 4], ["30083", "轻锰矿", 5]],
+  [["3303", "技巧概要·卷3", 12], ["30024", "糖聚块", 4], ["30104", "RMA70-24", 8]],
+  [["3303", "技巧概要·卷3", 15], ["30135", "D32钢", 6], ["30044", "异铁块", 5]],
+] as [id: string, name: string, count: number][][];
+</script>
+
+<template>
+  <AkMaterials>
+    <AkMaterialsRow v-for="(items, i) in mastery" :key="i">
+      <template #label><AkElite :src="asset(`specialized/specialized_tiny_${i + 1}.png`)" :text="`专精 ${['Ⅰ', 'Ⅱ', 'Ⅲ'][i]}`" /></template>
+      <AkItem v-for="[id, name, count] in items" :key="id" :src="f(id)" :name="name" :count="count" />
+    </AkMaterialsRow>
+  </AkMaterials>
+</template>
+```
+
+html
+
+上面是组件实际渲染出的结构——MW 模板 / Lua 照这个输出即可得到同样的外观。
+
+## Vue API [​](#vue-api)
+
+### AkMaterials [​](#akmaterials)
+
+| 属性 | 类型 | 默认 | 说明 |
+| --- | --- | --- | --- |
+
+| 插槽 | 说明 |
+| --- | --- |
+| `default` | 若干 AkMaterialsRow / AkMaterialsDivider |
+
+### AkMaterialsRow [​](#akmaterialsrow)
+
+| 属性 | 类型 | 默认 | 说明 |
+| --- | --- | --- | --- |
+| `label` | `string` | — | 左列文字（「1 → 2」「精英阶段 0→1」）；要放精英化图标时用 #label 插槽 |
+
+| 插槽 | 说明 |
+| --- | --- |
+| `default` | 这一步要的材料：若干 AkItem——没写 size 的按表里的规格画成 sm（40px） |
+| `label` | 左列内容（代替 label） |
+
+### AkMaterialsDivider [​](#akmaterialsdivider)
+
+| 属性 | 类型 | 默认 | 说明 |
+| --- | --- | --- | --- |
+
+| 插槽 | 说明 |
+| --- | --- |
+| `default` | 说明文字 |
+
+## CSS 实现 [​](#css-实现)
+
+结构：`.ak-materials` 两列网格，每行是相邻的两个子元素 `span.ak-materials__label` + `span.ak-item-list`（`AkMaterialsRow` 因此是两个根元素的组件）；`.ak-materials__divider` 占满一整行。左列里的 `img` 16px 高、跟主题反相。
+
+| 块 | 元素 \_\_ | 修饰 -- |
+| --- | --- | --- |

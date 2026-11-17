@@ -1,0 +1,50 @@
+# 缩略图与图库
+
+> 来源：https://mooncellwiki.github.io/prts-design/content/media
+>
+> PRTS Design 文档自动归档，供 AI 学习复刻 UI 与美术设计。
+
+---
+
+# 缩略图与图库 [​](#缩略图与图库)
+
+`base/media.css`：`[[文件:x.png|thumb]]` 和 `<gallery>` 的输出。图片本身是内容，框只做托底：浅底 + 1px 细框、直角，图注与图片之间一道更淡的细线。
+
+## 缩略图 [​](#缩略图)
+
+MW 1.40+ 的媒体 DOM 是 `figure[typeof="mw:File/Thumb"] > a > img + figcaption`（旧版 `.thumb` / `.thumbinner` / `.thumbcaption` 同样适配）。`|right` / `|left` / `|center` 输出 `.mw-halign-*`，左右浮动时靠内侧留 20px；放大镜图标 `.magnify` 不显示。手机（≤639）上浮动取消、图片独占一行（规则在[皮肤骨架 · 响应式](/prts-design/chrome/responsive)）。
+
+## 图库 [​](#图库)
+
+`<gallery>` 改成弹性布局：卡片间距 12px，不再用 MW 默认给每格写死的内联宽度（`!important` 压过去）；卡片 = 浅底细框 + 12px 灰色图注。`mode="packed"` 的格子按图片自身宽度排。
+
+html
+
+```
+<figure typeof="mw:File/Thumb" class="mw-halign-right" style="width:160px"><a href="#"><img src="assets/avatar/char_003_kalts_2.png" width="150" alt=""></a><figcaption>凯尔希 · 干员头像（示例图注）</figcaption></figure>
+<p>浮动缩略图为白/深底 + 1px 边框，图注以细分隔线与图片隔开。图库使用弹性布局，卡片间距 12px，不再使用 MW 默认的固定宽度。</p>
+<ul class="gallery mw-gallery-traditional">
+  <li class="gallerybox"><div><div class="thumb"><div><img src="assets/skill/chen_1.png" width="72" alt=""></div></div><div class="gallerytext"><p>鞘击</p></div></div></li>
+  <li class="gallerybox"><div><div class="thumb"><div><img src="assets/skill/chen_2.png" width="72" alt=""></div></div><div class="gallerytext"><p>赤霄·拔刀</p></div></div></li>
+  <li class="gallerybox"><div><div class="thumb"><div><img src="assets/skill/chen_3.png" width="72" alt=""></div></div><div class="gallerytext"><p>赤霄·绝影</p></div></div></li>
+</ul>
+<div style="clear:both"></div>
+```
+
+## 图片 [​](#图片)
+
+- `.mw-file-element { max-width: 100%; height: auto }`：正文里的大图不会撑破栏宽。只管 `[[文件:]]` 嵌入图（正文、`<gallery>` 都带这个类；文件描述页的大图由核心 `filepage` 模块的 `#file img` 管），Widget / 模板直接写的 `<img>` 不碰——早先这条是全局 `img`，出过两种问题：
+
+  - `height: auto` 盖掉 HTML 的 `height="30px"` 属性，只靠属性定尺寸的图（CharinfoV2 舞台的 HUD 图标）变回原图大小；
+  - 百分比 `max-width` 让图的最小宽度计 0。表格自动布局按最小宽度给列分宽，只装图标的列（语音记录的播放 / 下载格）会被 `width: 100%` 的兄弟列挤成 0 宽。
+
+  文件图放进表格照样有第二种风险，而且不止 `width: 100%` 的兄弟列：兄弟列定了 px 宽时，自动布局先满足定宽列，图标列只分剩下的（`模板:剧情简介` 旁边是 120 / 620px 两列，正文栏窄于约 964px 时播放格只剩 2px，按钮整个不见）；兄弟列是长文本时按内容宽度比例分，图标列也只分到十几 px。给图标列定 `width` 不管用：定宽列放不下时一起按比例缩，`width: 52px` 的播放格在 640 宽下照样只剩 26px。要保住尺寸，得给图本身一个不依赖格子的参照：
+
+  - 图外套定宽的 `inline-block`：`<span style="display:inline-block;width:50px">[[文件:…|50px]]</span>`。纯行内写法，不用样式页；Minerva 有同样的 `max-width`，一并修好；
+  - 或者类 + TemplateStyles 给图 `max-width: none`（`.prts-item-icon .mw-file-element`）。压不过 Minerva 自己的规则，那边原样不动。
+
+  皮肤层没有干净的写法：改成 `max-width: max(100%, 4rem)`，Blink 里图回到原尺寸，但算列宽时仍按 0，图会伸出格子盖到隔壁。
+- `img.ak-pixel`：像素图（小尺寸游戏图标放大）用 `image-rendering: pixelated`，不糊。
+- 游戏的白色线稿图标（职业 / 精英 / 势力）加 `.ak-glyph`，亮色主题下自动反相，见[装饰语言](/prts-design/foundations/decoration#白色线稿图标-ak-glyph)。
+
+## CSS [​](#css)

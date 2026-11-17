@@ -1,0 +1,27 @@
+# 概述
+
+> 来源：https://mooncellwiki.github.io/prts-design/patterns/
+>
+> PRTS Design 文档自动归档，供 AI 学习复刻 UI 与美术设计。
+
+---
+
+# 页面模式 [​](#页面模式)
+
+L5：把组件拼成整页。样例页运行在皮肤骨架里（`preview/`，由 `python3 scripts/build-preview.py` 从 `preview/_src/` 生成），信息结构取自 prts.wiki 现网页面，只换视觉——页面 wikitext 尽量不改，改的是模板输出的 HTML。
+
+每张样例都分清两半：**皮肤这半**（骨架上的收敛行为，如首页去标题 / 去目录）归 `skin.mustache` 与皮肤样式，站点不用写 `MediaWiki:Common.css`；**页面这半**（区块结构与排布）归模板输出 + TemplateStyles，整页 / 整个模板输出标 `ak-not-prose`。
+
+| 页面 | 状态 | 说明 |
+| --- | --- | --- |
+| [首页](/prts-design/patterns/home) | 设计稿 | 现网首页的轮播 / 入口 / 今日信息 / 亮点干员 / 近期新增 / 网站信息 |
+| [干员页（陈）](/prts-design/patterns/operator) | 设计稿 | 现网「陈」页面的 19 个章节；顶部 `CharinfoV2` Widget 原样复用 |
+| [干员一览](/prts-design/patterns/operators) | 设计稿 | 列表 / 筛选页：现网 `CharList` Widget 的 16 行筛选收成「常用三行 + 高级筛选五类页签」（[筛选芯片](/prts-design/components/chip)，分支选了职业才出、带游戏图标）+ 排序 + 表格 / 卡片 / [干员卡](/prts-design/arknights/op-card)网格三种结果 |
+| [敌人一览](/prts-design/patterns/enemies) | 设计稿 | 列表 / 筛选页：现网 `EnemiesListV2` Widget 换成干员一览那套排布——筛选对着游戏敌人图鉴的五组（地位 / 种类 / 攻击方式 / 伤害类型 / 行动方式）+ 八项属性等级（芯片提示数值范围）+ 排序 + 表格 / 卡片 / [敌人卡](/prts-design/arknights/enemy)网格三种结果；头像是方图 + 左上角图鉴编号，地位看侧边色条 |
+| [道具一览](/prts-design/patterns/items) | 设计稿 | 第二张列表 / 筛选页：现网 `ItemList` Widget 换成干员一览那套排布——三行[筛选芯片](/prts-design/components/chip)（分类按游戏仓库的页签分四组、稀有度是底框颜色的圆环）+ 仓库顺序 / 稀有度排序 + [道具图标](/prts-design/arknights/item)网格 / 列表两种结果；「其他」改成真正的兜底 |
+| [后勤技能一览](/prts-design/patterns/riic) | 设计稿 | 列表 / 筛选页：现网 `{{后勤技能信息/store}}` 的 10 张折叠表换成干员一览那套排布，数据改从游戏 `building_data` 来——五行[筛选芯片](/prts-design/components/chip)（设施带游戏线稿、作用对象照进驻面板的效率分组、解锁阶段、干员稀有度 / 干员职业）+ 游戏顺序 / 效率 / 持有人数排序 + 按设施分组吸顶的技能行（技能名条底色的方砖、持有干员是干员卡（职业 / 星级角标）、解锁条件、替换关系）/ 干员卡两种结果 |
+| [公招计算](/prts-design/patterns/recruit) | 设计稿 | 工具页：现网 `HrCalculator` Widget 照游戏的招募流程重排——四行标签芯片（个数不限，次序对齐游戏招募页）+ 按「保底几星」分层的组合（每组至多 3 个标签，保底按 9:00 算，不保底的那层默认收起）；没选标签时是全部保底组合的速查 |
+| [资源库 ak-asset-storage](/prts-design/patterns/asset-storage) | 设计稿 | 站外工具页：torappu.prts.wiki 的前端换成设计系统——页眉导航（没有侧栏）、版本 / 变更 / 清单 / 文件 / 剧情资源五页 + 搜索面板 + 状态样例；用的是独立的 `app-skeleton.html`，不是皮肤骨架 |
+| 关卡页 | 规划 | [关卡](/prts-design/arknights/stage) `.ak-stage` 头 + 地图 + [敌人](/prts-design/arknights/enemy) `.ak-enemy` 列表 + 掉落 `.ak-item-list` |
+| 剧情页 | 规划 | [剧情对话](/prts-design/arknights/dialogue) `.ak-dialogue` + 分段 + 剧透 `.ak-redacted` |
+| 特殊页 / 编辑页 | 规划 | OOUI / Codex 桥接令牌 + `.ak-body--flat`（见[特殊页面](/prts-design/content/special-pages)） |
